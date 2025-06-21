@@ -1,19 +1,75 @@
 {
   "name": "base-tower-tactics",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "commit": "cz",
+    "prepare": "husky",
+    "preview": "vite preview",
+    "lint": "eslint '**/*.{tsx,ts}'",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier --write '**/*.{tsx,ts}'",
+    "format": "npm run prettier && npm run lint:fix",
+    "dev:setup": "vite",
+    "dev:start": "electron . ",
+    "build": "tsc -b && vite build"
   },
   "dependencies": {
-    "solid-js": "^1.9.5"
+    "@excaliburjs/plugin-tiled": "^0.30.2",
+    "@tailwindcss/vite": "^4.1.10",
+    "excalibur": "^0.30.3",
+    "solid-js": "^1.9.5",
+    "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.29.0",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.29.0",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.5.3",
     "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
     "vite": "^6.3.5",
     "vite-plugin-solid": "^2.11.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog",
+      "types": {
+        "feat": {
+          "description": "A new feature",
+          "title": "Features"
+        },
+        "fix": {
+          "description": "A bug fix",
+          "title": "Bug Fixes"
+        },
+        "docs": {
+          "description": "Documentation only changes",
+          "title": "Documentation"
+        },
+        "style": {
+          "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
+          "title": "Styles"
+        },
+        "refactor": {
+          "description": "A code change that neither fixes a bug nor adds a feature",
+          "title": "Code Refactoring"
+        },
+        "test": {
+          "description": "Adding missing tests or correcting existing tests",
+          "title": "Tests"
+        },
+        "chore": {
+          "description": "Other changes that don't modify src or test files",
+          "title": "Chores"
+        }
+      }
+    }
   }
 }
