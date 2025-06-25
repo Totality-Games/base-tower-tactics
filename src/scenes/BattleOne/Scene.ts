@@ -6,17 +6,12 @@ import {
 } from 'excalibur';
 import { battleOneResources } from './Resources';
 import { BaseSceneWithContext } from '../BaseSceneWithContext';
-import { type ContextProps } from '../../context/store';
 import { SCENE_STATE } from '../../constants';
 
 export class BattleOne extends BaseSceneWithContext {
-  constructor(context: ContextProps) {
-    super(context);
-  }
-
   onInitialize(engine: Engine): void {
     this.setCameraBoundaries(engine);
-    engine.currentScene.camera.zoom = 1;
+    engine.currentScene.camera.zoom = 0.7;
 
     // if (this.globalStore.party) {
     //   const party = this.globalStore.party;
@@ -31,7 +26,7 @@ export class BattleOne extends BaseSceneWithContext {
 
     //   engine.currentScene.camera.strategy.lockToActor(player);
     // }
-    // battleOneResources.TiledMap.addToScene(engine.currentScene);
+    battleOneResources.TiledMap.addToScene(engine.currentScene);
 
     // const enemies = this.setupEnemies();
     // enemies.map((enemy) => {
