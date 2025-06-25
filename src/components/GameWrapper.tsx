@@ -3,8 +3,12 @@ import { onMount } from 'solid-js';
 
 // import all scenes
 import { StartScreen, startScreenLoader } from '../scenes/TitleMenu/Scene';
+import { useGameContext } from '../context/store';
+import { SCENE_NAMES } from '../constants';
 
 export function GameWrapper() {
+  const { setGlobalStore } = useGameContext();
+
   onMount(() => {
     // start the game with Excalibur.js
     const game = new Engine({
@@ -15,7 +19,7 @@ export function GameWrapper() {
       resolution: Resolution.NintendoDS,
       scenes: {
         start: {
-          scene: new StartScreen(), // must pass the globalStore context into scenes to update it
+          scene: new StartScreen(useGameContext()), // must pass the globalStore context into scenes to update it
           loader: startScreenLoader,
         },
       },
@@ -23,7 +27,9 @@ export function GameWrapper() {
 
     // start the game
     game.start().then(async () => {
-      game.goToScene('start');
+      setGlobalStore('gameEngine', game);
+      game.goToScene(SCENE_NAMES.START);
+      setGlobalStore('currentScene', SCENE_NAMES.START);
     });
   });
 

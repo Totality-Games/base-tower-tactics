@@ -1,4 +1,4 @@
-import { ImageFiltering, ImageSource, Sound } from 'excalibur';
+import { ImageFiltering, ImageSource } from 'excalibur';
 
 // import backgrounds
 import backgroundPath from '/assets/images/backgrounds/background1.png?url';

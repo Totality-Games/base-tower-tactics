@@ -1,0 +1,39 @@
+import { createContext, useContext, type JSXElement } from 'solid-js';
+import { createStore, type SetStoreFunction } from 'solid-js/store';
+import { SCENE_STATE } from '../constants';
+import { type Engine, type Sound } from 'excalibur';
+
+export enum ResponseType {
+  INPUT = 'input',
+  CHOICE = 'choice',
+}
+
+export interface GlobalStoreType {
+  gameEngine?: Engine;
+  sceneState: SCENE_STATE;
+  currentScene: string;
+  currentSong?: Sound;
+}
+
+export type SetGlobalStoreType = SetStoreFunction<GlobalStoreType>;
+export interface ContextProps {
+  globalStore: GlobalStoreType;
+  setGlobalStore: SetGlobalStoreType;
+}
+
+const GameContext = createContext<ContextProps>();
+
+export function GameContextProvider(props: { children: JSXElement }) {
+  const [globalStore, setGlobalStore] = createStore({
+    sceneState: SCENE_STATE.INITIAL_LOAD,
+    currentScene: 'start',
+  });
+
+  return (
+    <GameContext.Provider value={{ globalStore, setGlobalStore }}>
+      {props.children}
+    </GameContext.Provider>
+  );
+}
+
+export const useGameContext = () => useContext(GameContext)!;

@@ -14,7 +14,7 @@ export function TitleMenu() {
           class='w-[525px] h-[70vh] text-center text-black text-6xl z-[101] bg-white/40 rounded-2xl flex flex-row items-center justify-center gap-4'
           style={{ 'font-family': '"Jersey 10", serif' }}>
           <div class='flex flex-col justify-around items-center h-full'>
-            <h1 class=''>Aeons: Prophets</h1>
+            <h1 class=''>Base Tower Tactics</h1>
             <span class='flex flex-col gap-4'>
               <button
                 class={`hover:cursor-pointer hover:text-slate-500`}

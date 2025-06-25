@@ -6,14 +6,14 @@ import {
   Sprite,
   type SceneActivationContext,
   DefaultLoader,
-  Scene,
 } from 'excalibur';
 
 import { titleMenuResources } from './Resources';
+import { BaseSceneWithContext } from '../BaseSceneWithContext';
 
 const SCALE = vec(1, 1);
 
-export class StartScreen extends Scene {
+export class StartScreen extends BaseSceneWithContext {
   background!: Actor;
   background2!: Actor;
   bgsprite?: Sprite;
