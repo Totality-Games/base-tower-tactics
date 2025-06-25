@@ -10,6 +10,7 @@ import {
 
 import { titleMenuResources } from './Resources';
 import { BaseSceneWithContext } from '../BaseSceneWithContext';
+import { SCENE_STATE } from '../../constants';
 
 const SCALE = vec(1, 1);
 
@@ -18,9 +19,7 @@ export class StartScreen extends BaseSceneWithContext {
   background2!: Actor;
   bgsprite?: Sprite;
 
-  override onInitialize(engine: Engine): void {
-    this.engine = engine;
-
+  override onInitialize(_engine: Engine): void {
     this.background = new Actor({
       name: 'background',
       pos: vec(0, 0),
@@ -45,7 +44,9 @@ export class StartScreen extends BaseSceneWithContext {
     this.add(this.background2);
   }
 
-  onActivate(_context: SceneActivationContext<unknown>): void {}
+  onActivate(_context: SceneActivationContext<unknown>): void {
+    this.setGlobalStore('sceneState', SCENE_STATE.TITLE);
+  }
 }
 
 // loader

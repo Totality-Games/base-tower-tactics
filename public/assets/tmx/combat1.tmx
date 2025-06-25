@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="right-down" width="11" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" source="../../castle_interriors.tsx"/>
+ <tileset firstgid="1" source="../tsx/castle_interriors.tsx"/>
  <layer id="2" name="Floor" width="11" height="8" locked="1">
   <data encoding="base64">
    9wQAAHUEAAD3BAAAdgQAAPcEAADWBAAA1gQAANUEAAD3BAAA9wQAAHYEAAB0BAAAdAQAAHUEAAB1BAAA1gQAAHUEAAB0BAAA1QQAABgFAAB0BAAA1QQAAHMEAAD3BAAAGAUAAPcEAABzBAAAdAQAABgFAAB2BAAAGAUAAPcEAAB1BAAA9wQAAPcEAAB2BAAAdAQAABgFAADVBAAA1gQAANYEAADWBAAAGAUAANUEAAB2BAAAdAQAAHYEAAAYBQAAdQQAAHYEAAAYBQAAGAUAANYEAAAYBQAA9wQAABgFAAB0BAAAdAQAABgFAADVBAAAdQQAANYEAADWBAAAdQQAAHQEAAB0BAAAdgQAABgFAADVBAAA1gQAAHYEAADWBAAA9wQAANUEAAAYBQAA9wQAAHUEAAB1BAAAGAUAAHMEAABzBAAA1QQAAHMEAADVBAAAdQQAAHQEAAB2BAAAdgQAAA==

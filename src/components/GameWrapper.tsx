@@ -5,6 +5,7 @@ import { onMount } from 'solid-js';
 import { StartScreen, startScreenLoader } from '../scenes/TitleMenu/Scene';
 import { useGameContext } from '../context/store';
 import { SCENE_NAMES } from '../constants';
+import { BattleOne, battleOneSceneLoader } from '../scenes/BattleOne/Scene';
 
 export function GameWrapper() {
   const { setGlobalStore } = useGameContext();
@@ -21,6 +22,10 @@ export function GameWrapper() {
         start: {
           scene: new StartScreen(useGameContext()), // must pass the globalStore context into scenes to update it
           loader: startScreenLoader,
+        },
+        battleOne: {
+          scene: new BattleOne(useGameContext()),
+          loader: battleOneSceneLoader,
         },
       },
     });

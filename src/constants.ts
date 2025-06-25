@@ -42,4 +42,5 @@ export enum CLASSES {
 
 export enum SCENE_NAMES {
   START = 'start', // TitleMenu Scene
+  BATTLE_ONE = 'battleOne',
 }
