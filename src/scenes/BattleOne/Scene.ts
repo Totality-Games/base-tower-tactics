@@ -2,6 +2,8 @@ import {
   BoundingBox,
   DefaultLoader,
   Engine,
+  ImageSource,
+  SpriteSheet,
   vec,
   type SceneActivationContext,
 } from 'excalibur';
@@ -10,11 +12,12 @@ import { BaseSceneWithContext } from '../BaseSceneWithContext';
 import { SCENE_STATE } from '../../constants';
 import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
+import { Guard } from '../../actors/npcs/Guard';
 
 export class BattleOne extends BaseSceneWithContext {
   onInitialize(engine: Engine): void {
     this.setCameraBoundaries(engine);
-    engine.currentScene.camera.zoom = 0.7;
+    engine.currentScene.camera.zoom = 0.75;
 
     const player = new MainGuy(
       vec(gridCells(1), gridCells(6)),
@@ -37,14 +40,14 @@ export class BattleOne extends BaseSceneWithContext {
 
     //   const player = this.globalStore.party[0] as MainGuy; // import type for extended props like direction
 
-    engine.currentScene.camera.strategy.lockToActor(player);
+    // engine.currentScene.camera.strategy.lockToActor(player);
     // }
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 
-    // const enemies = this.setupEnemies();
-    // enemies.map((enemy) => {
-    //   engine.currentScene.add(enemy);
-    // });
+    const enemies = this.setupEnemies();
+    enemies.map((enemy) => {
+      engine.currentScene.add(enemy);
+    });
   }
 
   async onActivate(_context: SceneActivationContext<unknown>): Promise<void> {
@@ -59,38 +62,38 @@ export class BattleOne extends BaseSceneWithContext {
 
   onPreUpdate(_engine: Engine, _delta: number): void {}
 
-  //   private setupEnemies() {
-  //     const wolfkinSpriteSheet = SpriteSheet.fromImageSource({
-  //       image: battleOneResources.WolfkinSpriteSheetPng as ImageSource,
-  //       grid: {
-  //         spriteWidth: 26,
-  //         spriteHeight: 36,
-  //         rows: 8,
-  //         columns: 12,
-  //       },
-  //     });
+  private setupEnemies() {
+    const wolfkinSpriteSheet = SpriteSheet.fromImageSource({
+      image: battleOneResources.WolfkinSpriteSheetPng as ImageSource,
+      grid: {
+        spriteWidth: 26,
+        spriteHeight: 36,
+        rows: 8,
+        columns: 12,
+      },
+    });
 
-  //     const guardOne = new Guard(
-  //       vec(gridCells(8), gridCells(2)),
-  //       {
-  //         globalStore: this.globalStore,
-  //         setGlobalStore: this.setGlobalStore,
-  //       },
-  //       wolfkinSpriteSheet,
-  //       'Wolfkin Guard One'
-  //     );
-  //     const guardTwo = new Guard(
-  //       vec(gridCells(9), gridCells(2)),
-  //       {
-  //         globalStore: this.globalStore,
-  //         setGlobalStore: this.setGlobalStore,
-  //       },
-  //       wolfkinSpriteSheet,
-  //       'Wolfkin Guard Two'
-  //     );
+    const guardOne = new Guard(
+      vec(gridCells(8), gridCells(1)),
+      {
+        globalStore: this.globalStore,
+        setGlobalStore: this.setGlobalStore,
+      },
+      wolfkinSpriteSheet,
+      'Wolfkin Guard One'
+    );
+    const guardTwo = new Guard(
+      vec(gridCells(9), gridCells(1)),
+      {
+        globalStore: this.globalStore,
+        setGlobalStore: this.setGlobalStore,
+      },
+      wolfkinSpriteSheet,
+      'Wolfkin Guard Two'
+    );
 
-  //     return [guardOne, guardTwo];
-  //   }
+    return [guardOne, guardTwo];
+  }
 
   private setCameraBoundaries(engine: Engine) {
     // add map boundaries for camera
