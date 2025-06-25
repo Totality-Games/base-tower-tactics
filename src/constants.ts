@@ -20,6 +20,12 @@ export enum DIRECTIONS {
   RIGHT = 'right',
 }
 
+export enum MOVEMENT {
+  IDLE = 'idle',
+  WALK = 'walk',
+  RUN = 'run',
+}
+
 export enum SEXES {
   MALE = 'MALE',
   FEMALE = 'FEMALE',

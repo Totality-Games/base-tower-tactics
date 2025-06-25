@@ -2,21 +2,34 @@ import {
   BoundingBox,
   DefaultLoader,
   Engine,
+  vec,
   type SceneActivationContext,
 } from 'excalibur';
 import { battleOneResources } from './Resources';
 import { BaseSceneWithContext } from '../BaseSceneWithContext';
 import { SCENE_STATE } from '../../constants';
+import { MainGuy } from '../../actors/main/Player';
+import { gridCells } from '../../utils';
 
 export class BattleOne extends BaseSceneWithContext {
   onInitialize(engine: Engine): void {
     this.setCameraBoundaries(engine);
     engine.currentScene.camera.zoom = 0.7;
 
+    const player = new MainGuy(
+      vec(gridCells(1), gridCells(6)),
+      battleOneResources,
+      {
+        globalStore: this.globalStore,
+        setGlobalStore: this.setGlobalStore,
+      }
+    );
+    engine.currentScene.add(player);
+
     // if (this.globalStore.party) {
     //   const party = this.globalStore.party;
     //   party.map((member, i) => {
-    //     const defaultPlayerPos = vec(gridCells(i + 1), gridCells(12));
+    // const defaultPlayerPos = ;
     //     engine.currentScene.add(member);
     //     member.pos = defaultPlayerPos;
     //     member.direction = DIRECTIONS.DOWN;
@@ -24,7 +37,7 @@ export class BattleOne extends BaseSceneWithContext {
 
     //   const player = this.globalStore.party[0] as MainGuy; // import type for extended props like direction
 
-    //   engine.currentScene.camera.strategy.lockToActor(player);
+    engine.currentScene.camera.strategy.lockToActor(player);
     // }
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 
