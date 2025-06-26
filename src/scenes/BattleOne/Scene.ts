@@ -39,8 +39,6 @@ export class BattleOne extends BaseSceneWithContext {
     //   });
 
     //   const player = this.globalStore.party[0] as MainGuy; // import type for extended props like direction
-
-    // engine.currentScene.camera.strategy.lockToActor(player);
     // }
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 
@@ -73,15 +71,15 @@ export class BattleOne extends BaseSceneWithContext {
       },
     });
 
-    const guardOne = new Guard(
-      vec(gridCells(8), gridCells(1)),
-      {
-        globalStore: this.globalStore,
-        setGlobalStore: this.setGlobalStore,
-      },
-      wolfkinSpriteSheet,
-      'Wolfkin Guard One'
-    );
+    // const guardOne = new Guard(
+    //   vec(gridCells(8), gridCells(1)),
+    //   {
+    //     globalStore: this.globalStore,
+    //     setGlobalStore: this.setGlobalStore,
+    //   },
+    //   wolfkinSpriteSheet,
+    //   'Wolfkin Guard One'
+    // );
     const guardTwo = new Guard(
       vec(gridCells(9), gridCells(1)),
       {
@@ -92,7 +90,10 @@ export class BattleOne extends BaseSceneWithContext {
       'Wolfkin Guard Two'
     );
 
-    return [guardOne, guardTwo];
+    return [
+      // guardOne,
+      guardTwo,
+    ];
   }
 
   private setCameraBoundaries(engine: Engine) {

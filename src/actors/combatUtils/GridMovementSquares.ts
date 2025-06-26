@@ -9,7 +9,7 @@ import {
   Side,
   vec,
   Vector,
-} from "excalibur";
+} from 'excalibur';
 
 const rect = new Rectangle({
   width: 32,
@@ -42,16 +42,17 @@ export class GridMovementSquareChild extends Actor {
     _self: Collider,
     _other: Collider,
     _side: Side,
-    _contact: CollisionContact,
+    _contact: CollisionContact
   ): void {
     this.kill();
   }
 
   combatMovement() {
-    this.on("pointerdown", () => {
+    this.on('pointerdown', () => {
       if (this.parent === null) return;
       const parent = this.parent as Actor;
       parent.actions.moveBy(vec(this.pos.x, this.pos.y), 200);
+      parent.children.map((child) => child.kill());
       parent.removeAllChildren();
     });
   }
