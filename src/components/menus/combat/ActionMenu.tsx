@@ -17,7 +17,9 @@ export function ActionMenu() {
     const currentTurnUnit =
       globalStore.initiativeOrder![globalStore.currentCombatTurnValue];
 
-    currentTurnUnit.showMovementSquares = true;
+    if (!currentTurnUnit.hasMoved) {
+      currentTurnUnit.showMovementSquares = true;
+    }
   }
 
   function handleAttackClick() {

@@ -10,6 +10,7 @@ import {
   vec,
   Vector,
 } from 'excalibur';
+import type { CombatUnit } from './CombatUnit';
 
 const rect = new Rectangle({
   width: 32,
@@ -51,8 +52,10 @@ export class GridMovementSquareChild extends Actor {
   combatMovement() {
     this.on('pointerdown', () => {
       if (this.parent === null) return;
-      const parent = this.parent as Actor;
+      const parent = this.parent as CombatUnit;
       parent.actions.moveBy(vec(this.pos.x, this.pos.y), 200);
+      parent.hasMoved = true;
+      parent.showMovementSquares = false;
       parent.children.map((child) => child.kill());
       parent.removeAllChildren();
     });

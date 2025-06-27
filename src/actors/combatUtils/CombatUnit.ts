@@ -21,6 +21,7 @@ export class CombatUnit extends Actor {
   menuOpen: boolean;
   isInParty: boolean;
   showMovementSquares: boolean;
+  hasMoved: boolean;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
       pos,
@@ -43,6 +44,7 @@ export class CombatUnit extends Actor {
     this.menuOpen = false;
     this.isInParty = isInParty || false;
     this.showMovementSquares = false;
+    this.hasMoved = false;
   }
 
   onInitialize(_engine: Engine): void {
@@ -52,11 +54,12 @@ export class CombatUnit extends Actor {
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
     if (this.showMovementSquares) {
-      if (this.children) {
+      if (this.children.length === 0) {
+        this.createMovementSquares();
+      } else {
+        console.log(this.children);
         return;
       }
-
-      this.createMovementSquares();
     }
   }
 
