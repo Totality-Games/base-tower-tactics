@@ -33,11 +33,15 @@ export class BattleOne extends BaseSceneWithContext {
 
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 
-    this.turnOrder = [player];
+    this.setGlobalStore('initiativeOrder', [player]);
+
     const enemies = this.setupEnemies();
     enemies.map((enemy) => {
       engine.currentScene.add(enemy);
-      this.turnOrder?.push(enemy);
+      this.setGlobalStore('initiativeOrder', [
+        ...this.globalStore.initiativeOrder!,
+        enemy,
+      ]);
     });
   }
 

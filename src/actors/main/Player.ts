@@ -27,6 +27,7 @@ export class MainGuy extends CombatUnit {
   ) {
     super(pos, context);
     this.resources = resources;
+    this.name = 'Vajhir';
   }
 
   onInitialize(engine: Engine): void {

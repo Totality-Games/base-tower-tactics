@@ -2,17 +2,14 @@ import { createContext, useContext, type JSXElement } from 'solid-js';
 import { createStore, type SetStoreFunction } from 'solid-js/store';
 import { SCENE_STATE } from '../constants';
 import { type Engine, type Sound } from 'excalibur';
-
-export enum ResponseType {
-  INPUT = 'input',
-  CHOICE = 'choice',
-}
+import type { CombatUnit } from '../actors/combatUtils/CombatUnit';
 
 export interface GlobalStoreType {
   gameEngine?: Engine;
   sceneState: SCENE_STATE;
   currentScene: string;
   currentSong?: Sound;
+  initiativeOrder?: CombatUnit[];
 }
 
 export type SetGlobalStoreType = SetStoreFunction<GlobalStoreType>;
