@@ -23,7 +23,7 @@ body {
 
 body {
   color: var(--text-color);
-  background-color: #080e16;
+  background-color: #000000;
 
   font-family: monospace;
   font-family: var(--font-pixel-2);
@@ -41,6 +41,4 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-
-  position: relative;
 }

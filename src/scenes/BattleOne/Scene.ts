@@ -19,7 +19,7 @@ export class BattleOne extends BaseSceneWithContext {
   turnOrder?: CombatUnit[];
   onInitialize(engine: Engine): void {
     this.setCameraBoundaries(engine);
-    engine.currentScene.camera.zoom = 0.75;
+    engine.currentScene.camera.zoom = 0.7;
 
     const player = new MainGuy(
       vec(gridCells(1), gridCells(6)),
