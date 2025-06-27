@@ -27,7 +27,8 @@ export class BattleOne extends BaseSceneWithContext {
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
-      }
+      },
+      true // isInParty
     );
     engine.currentScene.add(player);
 

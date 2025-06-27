@@ -50,7 +50,7 @@ export function CombatMenu() {
                     <>
                       <div
                         data-index={index()}
-                        class='text-3xl cursor-pointer m-4 text-slate-700 hover:text-black'
+                        class={`text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
                         onclick={() => handleUnitNameClick(combatUnit)}>
                         {combatUnit.name}
                       </div>
@@ -82,7 +82,10 @@ function CombatUnitDetailUI(props: { unit?: CombatUnit }) {
         <div class='absolute w-full  top-0 right-0 text-black z-[101] bg-white/90 rounded-2xl'>
           <div class='flex flex-col justify-start items-start  w-full px-6 py-4'>
             <span class='flex flex-col justify-start items-start'>
-              <h1 class='text-5xl underline mb-1'>{props.unit?.name}</h1>
+              <h1
+                class={`text-5xl underline mb-1 ${props.unit?.isInParty ? 'text-slate-700 ' : 'text-red-700'}`}>
+                {props.unit?.name}
+              </h1>
 
               <div>
                 <h3 class='text-4xl'>Stats:</h3>

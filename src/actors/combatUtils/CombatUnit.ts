@@ -19,7 +19,8 @@ export class CombatUnit extends Actor {
     wisdom: number;
   };
   menuOpen: boolean;
-  constructor(pos: Vector, context: ContextProps) {
+  isInParty: boolean;
+  constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
       pos,
       width: 32,
@@ -39,6 +40,7 @@ export class CombatUnit extends Actor {
     };
     this.scale = new Vector(1, 1);
     this.menuOpen = false;
+    this.isInParty = isInParty || false;
   }
 
   onInitialize(_engine: Engine): void {

@@ -23,9 +23,10 @@ export class MainGuy extends CombatUnit {
     resources: {
       HeroSpriteSheetPng: ImageSource;
     },
-    context: ContextProps
+    context: ContextProps,
+    isInParty?: boolean
   ) {
-    super(pos, context);
+    super(pos, context, isInParty);
     this.resources = resources;
     this.name = 'Vajhir';
   }
