@@ -10,6 +10,7 @@ export interface GlobalStoreType {
   currentScene: string;
   currentSong?: Sound;
   initiativeOrder?: CombatUnit[];
+  actionMenu: boolean;
 }
 
 export type SetGlobalStoreType = SetStoreFunction<GlobalStoreType>;
@@ -24,6 +25,7 @@ export function GameContextProvider(props: { children: JSXElement }) {
   const [globalStore, setGlobalStore] = createStore({
     sceneState: SCENE_STATE.INITIAL_LOAD,
     currentScene: 'start',
+    actionMenu: false,
   });
 
   return (

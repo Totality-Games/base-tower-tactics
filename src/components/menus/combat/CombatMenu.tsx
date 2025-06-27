@@ -1,6 +1,6 @@
 import { For, Show } from 'solid-js';
-import { useGameContext } from '../../context/store';
-import { SCENE_STATE } from '../../constants';
+import { useGameContext } from '../../../context/store';
+import { SCENE_STATE } from '../../../constants';
 
 export function CombatMenu() {
   const { globalStore } = useGameContext();
@@ -18,7 +18,7 @@ export function CombatMenu() {
             <div class='flex flex-col justify-start items-start  w-full px-6 py-4'>
               <span class='flex flex-col justify-start items-start'>
                 <h1 class='text-5xl underline mb-1'>Combat Menu</h1>
-                <h1 class='text-4xl mb-1'>Initiative Order:</h1>
+                <h2 class='text-4xl mb-1'>Initiative Order:</h2>
                 <For
                   each={globalStore.initiativeOrder}
                   fallback={<></>}>
