@@ -12,6 +12,8 @@ export interface GlobalStoreType {
   initiativeOrder?: CombatUnit[];
   actionMenu: boolean;
   showCombatUnitMenu: boolean;
+  currentCombatUnitTotal: number;
+  currentCombatTurnValue: number;
 }
 
 export type SetGlobalStoreType = SetStoreFunction<GlobalStoreType>;
@@ -28,6 +30,8 @@ export function GameContextProvider(props: { children: JSXElement }) {
     currentScene: 'start',
     actionMenu: false,
     showCombatUnitMenu: false,
+    currentCombatUnitTotal: 0,
+    currentCombatTurnValue: 0,
   });
 
   return (

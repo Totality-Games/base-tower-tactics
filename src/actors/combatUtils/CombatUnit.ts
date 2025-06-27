@@ -20,6 +20,7 @@ export class CombatUnit extends Actor {
   };
   menuOpen: boolean;
   isInParty: boolean;
+  showMovementSquares: boolean;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
       pos,
@@ -41,11 +42,22 @@ export class CombatUnit extends Actor {
     this.scale = new Vector(1, 1);
     this.menuOpen = false;
     this.isInParty = isInParty || false;
+    this.showMovementSquares = false;
   }
 
   onInitialize(_engine: Engine): void {
     console.log('initialize combat unit');
     this.combatActions();
+  }
+
+  onPreUpdate(_engine: Engine, _elapsed: number): void {
+    if (this.showMovementSquares) {
+      if (this.children) {
+        return;
+      }
+
+      this.createMovementSquares();
+    }
   }
 
   combatActions() {
@@ -55,35 +67,37 @@ export class CombatUnit extends Actor {
 
       // set unit detail menu to false if action menu is displayed since they occupy the same space
       this.setGlobalStore('showCombatUnitMenu', false);
-
-      // player movement by dex score
-      switch (this.stats.dexterity) {
-        case 1: {
-          const childLeft = new GridMovementSquareChild(vec(-32, 0));
-          const childRight = new GridMovementSquareChild(vec(32, 0));
-          const childUp = new GridMovementSquareChild(vec(0, -32));
-          const childDown = new GridMovementSquareChild(vec(0, 32));
-
-          this.addChild(childLeft);
-          this.addChild(childRight);
-          this.addChild(childUp);
-          this.addChild(childDown);
-
-          break;
-        }
-        default: {
-          const childLeft = new GridMovementSquareChild(vec(-32, 0));
-          const childRight = new GridMovementSquareChild(vec(32, 0));
-          const childUp = new GridMovementSquareChild(vec(0, -32));
-          const childDown = new GridMovementSquareChild(vec(0, 32));
-
-          this.addChild(childLeft);
-          this.addChild(childRight);
-          this.addChild(childUp);
-          this.addChild(childDown);
-          break;
-        }
-      }
     });
+  }
+
+  createMovementSquares() {
+    // player movement by dex score
+    switch (this.stats.dexterity) {
+      case 1: {
+        const childLeft = new GridMovementSquareChild(vec(-32, 0));
+        const childRight = new GridMovementSquareChild(vec(32, 0));
+        const childUp = new GridMovementSquareChild(vec(0, -32));
+        const childDown = new GridMovementSquareChild(vec(0, 32));
+
+        this.addChild(childLeft);
+        this.addChild(childRight);
+        this.addChild(childUp);
+        this.addChild(childDown);
+
+        break;
+      }
+      default: {
+        const childLeft = new GridMovementSquareChild(vec(-32, 0));
+        const childRight = new GridMovementSquareChild(vec(32, 0));
+        const childUp = new GridMovementSquareChild(vec(0, -32));
+        const childDown = new GridMovementSquareChild(vec(0, 32));
+
+        this.addChild(childLeft);
+        this.addChild(childRight);
+        this.addChild(childUp);
+        this.addChild(childDown);
+        break;
+      }
+    }
   }
 }

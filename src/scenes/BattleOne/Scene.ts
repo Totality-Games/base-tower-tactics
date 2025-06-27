@@ -44,6 +44,11 @@ export class BattleOne extends BaseSceneWithContext {
         enemy,
       ]);
     });
+
+    this.setGlobalStore(
+      'currentCombatUnitTotal',
+      this.globalStore.initiativeOrder!.length
+    );
   }
 
   async onActivate(_context: SceneActivationContext<unknown>): Promise<void> {

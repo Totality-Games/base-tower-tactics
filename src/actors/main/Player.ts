@@ -36,7 +36,8 @@ export class MainGuy extends CombatUnit {
     this.addAnimations();
   }
 
-  onPreUpdate(_engine: Engine, _elapsedMs: number): void {
+  onPreUpdate(engine: Engine, elapsedMs: number): void {
+    super.onPreUpdate(engine, elapsedMs);
     this.vel = Vector.Zero;
 
     // if in combat, use walking down for idle, or any walking animation if moving
