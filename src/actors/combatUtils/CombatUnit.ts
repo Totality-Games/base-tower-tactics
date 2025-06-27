@@ -41,12 +41,15 @@ export class CombatUnit extends Actor {
 
   onInitialize(_engine: Engine): void {
     console.log('initialize combat unit');
-    // engine.input.pointers.on('down', this.combatMovement.bind(this));
-    this.combatMovement();
+    this.combatActions();
   }
 
-  combatMovement() {
+  combatActions() {
     this.events.on('pointerdown', () => {
+      // activate action menu
+      this.setGlobalStore('actionMenu', !this.globalStore.actionMenu);
+
+      // player movement by dex score
       switch (this.stats.dexterity) {
         case 1: {
           const childLeft = new GridMovementSquareChild(vec(-32, 0));
