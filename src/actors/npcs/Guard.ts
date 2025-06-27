@@ -22,7 +22,8 @@ export class Guard extends CombatUnit {
     this.name = name;
   }
 
-  onInitialize(_engine: Engine): void {
+  onInitialize(engine: Engine): void {
+    super.onInitialize(engine);
     this.addAnimations();
   }
 

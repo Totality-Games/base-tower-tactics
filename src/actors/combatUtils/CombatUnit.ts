@@ -18,6 +18,7 @@ export class CombatUnit extends Actor {
     constitution: number;
     wisdom: number;
   };
+  menuOpen: boolean;
   constructor(pos: Vector, context: ContextProps) {
     super({
       pos,
@@ -37,6 +38,7 @@ export class CombatUnit extends Actor {
       wisdom: 1,
     };
     this.scale = new Vector(1, 1);
+    this.menuOpen = false;
   }
 
   onInitialize(_engine: Engine): void {
