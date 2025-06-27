@@ -4,8 +4,7 @@ import { SCENE_STATE } from '../../../constants';
 import type { CombatUnit } from '../../../actors/combatUtils/CombatUnit';
 
 export function CombatMenu() {
-  const { globalStore } = useGameContext();
-  const [showCombatUnitMenu, setShowCombatUnitMenu] = createSignal(false);
+  const { globalStore, setGlobalStore } = useGameContext();
   const [combatUnitDetails, setCombatUnitDetails] = createSignal<
     CombatUnit | undefined
   >(undefined);
@@ -14,7 +13,7 @@ export function CombatMenu() {
     const currentMenuOpen = combatUnit.menuOpen; // store value when clicked
 
     // reset ui
-    setShowCombatUnitMenu(false);
+    setGlobalStore('showCombatUnitMenu', false);
     globalStore.initiativeOrder?.map((unit) => {
       unit.menuOpen = false;
     });
@@ -23,7 +22,10 @@ export function CombatMenu() {
       // if false when clicked, set true and show;
       combatUnit.menuOpen = true;
       setCombatUnitDetails(combatUnit);
-      setShowCombatUnitMenu(true);
+      setGlobalStore('showCombatUnitMenu', true);
+
+      // set action menu to false if unit detail menu is displayed since they occupy the same space
+      setGlobalStore('actionMenu', false);
     }
 
     // if true when clicked, do nothing because ui was already reset.
@@ -62,7 +64,7 @@ export function CombatMenu() {
           </div>
         </div>
 
-        <Show when={showCombatUnitMenu()}>
+        <Show when={globalStore.showCombatUnitMenu}>
           <CombatUnitDetailUI unit={combatUnitDetails()} />
         </Show>
       </Show>

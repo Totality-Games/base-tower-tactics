@@ -53,6 +53,9 @@ export class CombatUnit extends Actor {
       // activate action menu
       this.setGlobalStore('actionMenu', !this.globalStore.actionMenu);
 
+      // set unit detail menu to false if action menu is displayed since they occupy the same space
+      this.setGlobalStore('showCombatUnitMenu', false);
+
       // player movement by dex score
       switch (this.stats.dexterity) {
         case 1: {
