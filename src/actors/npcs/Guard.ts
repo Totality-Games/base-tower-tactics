@@ -1,23 +1,9 @@
-import {
-  Actor,
-  Animation,
-  CollisionType,
-  Engine,
-  Sprite,
-  SpriteSheet,
-  Vector,
-} from "excalibur";
-import { DIRECTIONS, SCENE_STATE } from "../../constants";
-import { createEffect } from "solid-js";
-import type {
-  GlobalStoreType,
-  SetGlobalStoreType,
-  ContextProps,
-} from "../../context/store";
+import { Animation, Engine, Sprite, SpriteSheet, Vector } from 'excalibur';
+import { DIRECTIONS } from '../../constants';
+import type { ContextProps } from '../../context/store';
+import { CombatUnit } from '../combatUtils/CombatUnit';
 
-export class Guard extends Actor {
-  private globalStore: GlobalStoreType;
-  setGlobalStore: SetGlobalStoreType;
+export class Guard extends CombatUnit {
   direction: DIRECTIONS;
   spriteSheet: SpriteSheet;
   constructor(
@@ -25,33 +11,19 @@ export class Guard extends Actor {
     context: ContextProps,
     spriteSheet: SpriteSheet,
     name: string,
-    direction?: DIRECTIONS,
+    direction?: DIRECTIONS
   ) {
-    super({
-      pos,
-      radius: 10,
-      collisionType: CollisionType.Fixed,
-    });
+    super(pos, context);
 
     this.z = 100;
-    this.scale = new Vector(1.8, 1.8);
+    this.scale = new Vector(1, 1);
     this.direction = direction ?? DIRECTIONS.DOWN;
     this.spriteSheet = spriteSheet;
-    this.globalStore = context.globalStore;
-    this.setGlobalStore = context.setGlobalStore;
     this.name = name;
   }
 
   onInitialize(_engine: Engine): void {
     this.addAnimations();
-
-    createEffect(() => {
-      // 1.8 for default scale; 1.0 for combat scale
-      this.scale =
-        this.globalStore.sceneState === SCENE_STATE.COMBAT
-          ? new Vector(1, 1)
-          : new Vector(1.8, 1.8);
-    });
   }
 
   onPreUpdate(_engine: Engine, _delta: number): void {
@@ -67,7 +39,7 @@ export class Guard extends Actor {
         },
       ],
     });
-    this.graphics.add("down-idle", downIdle);
+    this.graphics.add('down-idle', downIdle);
 
     const leftIdle = new Animation({
       frames: [
@@ -77,7 +49,7 @@ export class Guard extends Actor {
         },
       ],
     });
-    this.graphics.add("left-idle", leftIdle);
+    this.graphics.add('left-idle', leftIdle);
 
     const rightIdle = new Animation({
       frames: [
@@ -87,7 +59,7 @@ export class Guard extends Actor {
         },
       ],
     });
-    this.graphics.add("right-idle", rightIdle);
+    this.graphics.add('right-idle', rightIdle);
 
     const upIdle = new Animation({
       frames: [
@@ -97,6 +69,6 @@ export class Guard extends Actor {
         },
       ],
     });
-    this.graphics.add("up-idle", upIdle);
+    this.graphics.add('up-idle', upIdle);
   }
 }

@@ -13,8 +13,10 @@ import { SCENE_STATE } from '../../constants';
 import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
 import { Guard } from '../../actors/npcs/Guard';
+import type { CombatUnit } from '../../actors/combatUtils/CombatUnit';
 
 export class BattleOne extends BaseSceneWithContext {
+  turnOrder?: CombatUnit[];
   onInitialize(engine: Engine): void {
     this.setCameraBoundaries(engine);
     engine.currentScene.camera.zoom = 0.75;
@@ -29,22 +31,13 @@ export class BattleOne extends BaseSceneWithContext {
     );
     engine.currentScene.add(player);
 
-    // if (this.globalStore.party) {
-    //   const party = this.globalStore.party;
-    //   party.map((member, i) => {
-    // const defaultPlayerPos = ;
-    //     engine.currentScene.add(member);
-    //     member.pos = defaultPlayerPos;
-    //     member.direction = DIRECTIONS.DOWN;
-    //   });
-
-    //   const player = this.globalStore.party[0] as MainGuy; // import type for extended props like direction
-    // }
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 
+    this.turnOrder = [player];
     const enemies = this.setupEnemies();
     enemies.map((enemy) => {
       engine.currentScene.add(enemy);
+      this.turnOrder?.push(enemy);
     });
   }
 
