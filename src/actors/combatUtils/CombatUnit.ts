@@ -56,8 +56,6 @@ export class CombatUnit extends Actor {
     if (this.showMovementSquares) {
       if (this.children.length === 0) {
         this.createMovementSquares();
-      } else {
-        console.log(this.children);
         return;
       }
     }
@@ -68,7 +66,7 @@ export class CombatUnit extends Actor {
       // activate action menu
       this.setGlobalStore('actionMenu', !this.globalStore.actionMenu);
 
-      // set unit detail menu to false if action menu is displayed since they occupy the same space
+      // set unit detail menu to false if action menu is displayed since both menus occupy the same space
       this.setGlobalStore('showCombatUnitMenu', false);
     });
   }

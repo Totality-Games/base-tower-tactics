@@ -1,4 +1,4 @@
-import { createSignal, For, Show } from 'solid-js';
+import { createEffect, createSignal, For, Show } from 'solid-js';
 import { useGameContext } from '../../../context/store';
 import { SCENE_STATE } from '../../../constants';
 import type { CombatUnit } from '../../../actors/combatUtils/CombatUnit';
@@ -8,6 +8,18 @@ export function CombatMenu() {
   const [combatUnitDetails, setCombatUnitDetails] = createSignal<
     CombatUnit | undefined
   >(undefined);
+  const [currentTurnUnit, setCurrentTurnUnit] = createSignal<
+    CombatUnit | undefined
+  >(undefined);
+
+  createEffect(() => {
+    if (globalStore.initiativeOrder) {
+      const turnUnit =
+        globalStore.initiativeOrder?.[globalStore.currentCombatTurnValue];
+
+      setCurrentTurnUnit(turnUnit);
+    }
+  });
 
   function handleUnitNameClick(combatUnit: CombatUnit) {
     const currentMenuOpen = combatUnit.menuOpen; // store value when clicked
@@ -45,6 +57,7 @@ export function CombatMenu() {
               <span class='flex flex-col justify-start items-start'>
                 <h1 class='text-5xl underline mb-1'>Combat Menu</h1>
                 <h2 class='text-4xl mb-1'>Initiative Order:</h2>
+                <p>{globalStore.currentCombatTurnValue}</p>
                 <For
                   each={globalStore.initiativeOrder}
                   fallback={<></>}>
@@ -54,6 +67,7 @@ export function CombatMenu() {
                         data-index={index()}
                         class={`text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
                         onclick={() => handleUnitNameClick(combatUnit)}>
+                        {combatUnit === currentTurnUnit() ? 'ME!' : ''}{' '}
                         {combatUnit.name}
                       </div>
                     </>

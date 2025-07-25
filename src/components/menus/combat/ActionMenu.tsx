@@ -1,15 +1,39 @@
-import { Show } from 'solid-js';
+import { createEffect, Show } from 'solid-js';
 import { useGameContext } from '../../../context/store';
+import type { CombatUnit } from '../../../actors/combatUtils/CombatUnit';
 
 export function ActionMenu() {
-  const { globalStore } = useGameContext();
+  const { globalStore, setGlobalStore } = useGameContext();
 
   // this component needs access to the info from the current turn unit:
   // I can log the total number of units with initiativeOrder.length -- done
   // Perhaps I can have a simple incrementer (from 0 to initiativeOrder.length - 1) to mark turns; -- done
   // The incrementer will always match only one of the units initiativeOrder indexes. -- true
   // the unit that matches the incrementer is the current turn unit. -- done
+
   // incrementer will increase after attack is performed.
+  createEffect(() => {
+    const currentUnit =
+      globalStore.initiativeOrder?.[globalStore.currentCombatTurnValue];
+
+    currentUnit?.events.on('actioncomplete', (e) => {
+      const unit = e.self as CombatUnit;
+      if (unit.hasMoved) {
+        const nextTurnValue =
+          globalStore.currentCombatTurnValue ===
+          Number(globalStore.initiativeOrder?.length) - 1
+            ? 0 // reset if all units have had a turn this round
+            : globalStore.currentCombatTurnValue + 1;
+
+        if (nextTurnValue === 0) {
+          globalStore.initiativeOrder?.map((unit) => {
+            unit.hasMoved = false; // reset unit actions
+          });
+        }
+        setGlobalStore('currentCombatTurnValue', 1);
+      }
+    });
+  });
 
   // clicking on Move should display the current turn unit's movement squares
 
@@ -19,6 +43,9 @@ export function ActionMenu() {
 
     if (!currentTurnUnit.hasMoved) {
       currentTurnUnit.showMovementSquares = true;
+      setGlobalStore('actionMenu', false);
+    } else {
+      alert('already moved!');
     }
   }
 
