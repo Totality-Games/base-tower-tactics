@@ -22,6 +22,7 @@ export class CombatUnit extends Actor {
   isInParty: boolean;
   showMovementSquares: boolean;
   hasMoved: boolean;
+  isTurnUnit: boolean;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
       pos,
@@ -45,6 +46,7 @@ export class CombatUnit extends Actor {
     this.isInParty = isInParty || false;
     this.showMovementSquares = false;
     this.hasMoved = false;
+    this.isTurnUnit = false;
   }
 
   onInitialize(_engine: Engine): void {
@@ -53,6 +55,28 @@ export class CombatUnit extends Actor {
   }
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
+    if (
+      this.globalStore.initiativeOrder?.[
+        this.globalStore.currentCombatTurnValue
+      ] === this
+    ) {
+      if (this.hasMoved) {
+        const nextValue =
+          this.globalStore.currentCombatTurnValue ===
+          this.globalStore.currentCombatUnitTotal - 1
+            ? 0
+            : this.globalStore.currentCombatTurnValue + 1;
+        // this.isTurnUnit = false; // TODO: uncomment later
+        this.setGlobalStore('currentCombatTurnValue', nextValue);
+
+        if (nextValue === 0) {
+          this.globalStore.initiativeOrder.map(
+            (unit) => (unit.hasMoved = false)
+          );
+        }
+      }
+    }
+
     if (this.showMovementSquares) {
       if (this.children.length === 0) {
         this.createMovementSquares();

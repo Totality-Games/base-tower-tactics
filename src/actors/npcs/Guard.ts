@@ -1,9 +1,9 @@
 import { Animation, Engine, Sprite, SpriteSheet, Vector } from 'excalibur';
 import { DIRECTIONS } from '../../constants';
 import type { ContextProps } from '../../context/store';
-import { CombatUnit } from '../combatUtils/CombatUnit';
+import { EnemyUnit } from '../combatUtils/EnemyUnit';
 
-export class Guard extends CombatUnit {
+export class Guard extends EnemyUnit {
   direction: DIRECTIONS;
   spriteSheet: SpriteSheet;
   constructor(
@@ -27,7 +27,8 @@ export class Guard extends CombatUnit {
     this.addAnimations();
   }
 
-  onPreUpdate(_engine: Engine, _delta: number): void {
+  onPreUpdate(engine: Engine, delta: number): void {
+    super.onPreUpdate(engine, delta);
     this.graphics.use(`${this.direction}-idle`);
   }
 

@@ -1,6 +1,5 @@
-import { createEffect, Show } from 'solid-js';
+import { Show } from 'solid-js';
 import { useGameContext } from '../../../context/store';
-import type { CombatUnit } from '../../../actors/combatUtils/CombatUnit';
 
 export function ActionMenu() {
   const { globalStore, setGlobalStore } = useGameContext();
@@ -12,31 +11,8 @@ export function ActionMenu() {
   // the unit that matches the incrementer is the current turn unit. -- done
 
   // incrementer will increase after attack is performed.
-  createEffect(() => {
-    const currentUnit =
-      globalStore.initiativeOrder?.[globalStore.currentCombatTurnValue];
-
-    currentUnit?.events.on('actioncomplete', (e) => {
-      const unit = e.self as CombatUnit;
-      if (unit.hasMoved) {
-        const nextTurnValue =
-          globalStore.currentCombatTurnValue ===
-          Number(globalStore.initiativeOrder?.length) - 1
-            ? 0 // reset if all units have had a turn this round
-            : globalStore.currentCombatTurnValue + 1;
-
-        if (nextTurnValue === 0) {
-          globalStore.initiativeOrder?.map((unit) => {
-            unit.hasMoved = false; // reset unit actions
-          });
-        }
-        setGlobalStore('currentCombatTurnValue', 1);
-      }
-    });
-  });
 
   // clicking on Move should display the current turn unit's movement squares
-
   function handleMovementClick() {
     const currentTurnUnit =
       globalStore.initiativeOrder![globalStore.currentCombatTurnValue];
