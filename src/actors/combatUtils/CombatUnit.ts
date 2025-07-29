@@ -79,6 +79,11 @@ export class CombatUnit extends Actor {
   }
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
+    if (this.currentHP === 0) {
+      this.actions.flash(Color.Red, 750);
+      this.kill();
+    }
+
     if (
       this.globalStore.initiativeOrder?.[
         this.globalStore.currentCombatTurnValue
