@@ -47,7 +47,6 @@ export class EnemyUnit extends CombatUnit {
     const randomChild =
       children[Math.floor(Math.random() * children.length - 1)];
 
-    console.log(randomChild);
     this.actions.moveBy(vec(randomChild.pos.x, randomChild.pos.y), 200);
     this.hasMoved = true;
     this.showMovementSquares = false;
@@ -60,7 +59,6 @@ export class EnemyUnit extends CombatUnit {
     const enemySquares = children.filter(async (square) => {
       return square.unitInRange !== undefined;
     });
-    console.log('attack squares', enemySquares);
 
     if (!enemySquares.length) {
       this.shouldMoveFirst = true;

@@ -80,10 +80,7 @@ export class CombatUnit extends Actor {
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
     if (this.currentHP === 0) {
-      const didFlash = this.actions.flash(Color.Red, 750);
-      if (didFlash) {
-        this.kill();
-      }
+      this.actions.flash(Color.Red, 750).die();
     }
 
     if (
@@ -94,7 +91,7 @@ export class CombatUnit extends Actor {
       if (this.hasAttacked) {
         const nextValue =
           this.globalStore.currentCombatTurnValue ===
-          this.globalStore.currentCombatUnitTotal - 1
+          this.globalStore.currentCombatUnitTotal
             ? 0
             : this.globalStore.currentCombatTurnValue + 1;
         this.setGlobalStore('currentCombatTurnValue', nextValue);

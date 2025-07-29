@@ -13,10 +13,8 @@ import { SCENE_STATE } from '../../constants';
 import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
 import { Guard } from '../../actors/npcs/Guard';
-import type { CombatUnit } from '../../actors/combatUtils/CombatUnit';
 
 export class BattleOne extends BaseSceneWithContext {
-  turnOrder?: CombatUnit[];
   onInitialize(engine: Engine): void {
     this.setCameraBoundaries(engine);
     engine.currentScene.camera.zoom = 0.7;
@@ -31,10 +29,9 @@ export class BattleOne extends BaseSceneWithContext {
       true // isInParty
     );
     engine.currentScene.add(player);
+    this.setGlobalStore('initiativeOrder', [player]);
 
     battleOneResources.TiledMap.addToScene(engine.currentScene);
-
-    this.setGlobalStore('initiativeOrder', [player]);
 
     const enemies = this.setupEnemies();
     enemies.map((enemy) => {
@@ -47,7 +44,7 @@ export class BattleOne extends BaseSceneWithContext {
 
     this.setGlobalStore(
       'currentCombatUnitTotal',
-      this.globalStore.initiativeOrder!.length
+      this.globalStore.initiativeOrder!.length - 1
     );
   }
 
