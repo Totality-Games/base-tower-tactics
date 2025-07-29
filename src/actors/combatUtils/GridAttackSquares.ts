@@ -5,6 +5,7 @@ import {
   CollisionType,
   Color,
   Engine,
+  Label,
   Rectangle,
   Side,
   // vec,
@@ -33,9 +34,9 @@ export class GridAttackSquareChild extends Actor {
     this.scale = new Vector(1, 1);
   }
 
-  onInitialize(_engine: Engine): void {
+  onInitialize(engine: Engine): void {
     console.log('attack grid created');
-    this.combatAttack();
+    this.combatAttack(engine);
   }
 
   onPreUpdate(_engine: Engine, _elapsedMs: number): void {
@@ -56,17 +57,27 @@ export class GridAttackSquareChild extends Actor {
     }
   }
 
-  combatAttack() {
+  combatAttack(engine: Engine) {
     this.on('pointerdown', () => {
       if (this.parent === null) return;
       const parent = this.parent as CombatUnit;
       if (this.unitInRange) {
-        // this.unitInRange.kill();
-        this.unitInRange.currentHP = Number(this.unitInRange.currentHP) - 1;
+        const unitInRange = this.unitInRange;
+        unitInRange.currentHP = Number(unitInRange.currentHP) - 1;
+        unitInRange.actions.flash(Color.Red, 750);
+        unitInRange.damageVisual.text = '-1';
+        unitInRange.addChild(unitInRange.damageVisual as Label);
+
+        engine.currentScene.camera.shake(2, 2, 250);
+
         parent.hasAttacked = true;
         parent.showAttackSquares = false;
         parent.children.map((child) => child.kill());
         parent.removeAllChildren();
+        setTimeout(() => {
+          unitInRange.children.map((child) => child.kill());
+          unitInRange.removeAllChildren();
+        }, 1000);
         // end turn after attack
         parent.isTurnUnit = false;
       }

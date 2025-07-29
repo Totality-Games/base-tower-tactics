@@ -1,4 +1,12 @@
-import { Actor, Vector, CollisionType, Engine, vec } from 'excalibur';
+import {
+  Actor,
+  Vector,
+  CollisionType,
+  Engine,
+  vec,
+  Label,
+  Color,
+} from 'excalibur';
 import { DIRECTIONS, type CLASSES } from '../../constants';
 import type {
   GlobalStoreType,
@@ -28,6 +36,7 @@ export class CombatUnit extends Actor {
   isTurnUnit: boolean;
   totalHP?: number;
   currentHP?: number;
+  damageVisual: Label;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
       pos,
@@ -55,6 +64,11 @@ export class CombatUnit extends Actor {
     this.hasAttacked = false;
     this.isTurnUnit = false;
     this.z = 100;
+    this.damageVisual = new Label({
+      color: Color.Red,
+      text: '',
+      pos: new Vector(15, -16),
+    });
   }
 
   onInitialize(_engine: Engine): void {
