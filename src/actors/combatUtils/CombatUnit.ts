@@ -128,13 +128,15 @@ export class CombatUnit extends Actor {
   }
 
   combatActions() {
-    this.events.on('pointerdown', () => {
-      // activate action menu
-      this.setGlobalStore('actionMenu', !this.globalStore.actionMenu);
+    if (this.isInParty) {
+      this.events.on('pointerdown', () => {
+        // activate action menu
+        this.setGlobalStore('actionMenu', !this.globalStore.actionMenu);
 
-      // set unit detail menu to false if action menu is displayed since both menus occupy the same space
-      this.setGlobalStore('showCombatUnitMenu', false);
-    });
+        // set unit detail menu to false if action menu is displayed since both menus occupy the same space
+        this.setGlobalStore('showCombatUnitMenu', false);
+      });
+    }
   }
 
   createMovementSquares() {
