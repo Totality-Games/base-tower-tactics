@@ -20,6 +20,7 @@ export class Guard extends EnemyUnit {
     this.direction = direction ?? DIRECTIONS.DOWN;
     this.spriteSheet = spriteSheet;
     this.name = name;
+    this.stats.constitution = 2;
   }
 
   onInitialize(engine: Engine): void {

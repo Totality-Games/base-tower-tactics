@@ -54,6 +54,7 @@ export class GridAttackSquareChild extends Actor {
       this.kill();
     } else {
       this.unitInRange = other.owner as CombatUnit;
+      console.log('inrange:', this.unitInRange);
     }
   }
 
@@ -78,8 +79,6 @@ export class GridAttackSquareChild extends Actor {
           unitInRange.children.map((child) => child.kill());
           unitInRange.removeAllChildren();
         }, 1000);
-        // end turn after attack
-        parent.isTurnUnit = false;
       }
     });
   }

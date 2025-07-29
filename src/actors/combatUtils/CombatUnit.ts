@@ -80,8 +80,10 @@ export class CombatUnit extends Actor {
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
     if (this.currentHP === 0) {
-      this.actions.flash(Color.Red, 750);
-      this.kill();
+      const didFlash = this.actions.flash(Color.Red, 750);
+      if (didFlash) {
+        this.kill();
+      }
     }
 
     if (
@@ -89,19 +91,19 @@ export class CombatUnit extends Actor {
         this.globalStore.currentCombatTurnValue
       ] === this
     ) {
-      if (this.hasMoved) {
+      if (this.hasAttacked) {
         const nextValue =
           this.globalStore.currentCombatTurnValue ===
           this.globalStore.currentCombatUnitTotal - 1
             ? 0
             : this.globalStore.currentCombatTurnValue + 1;
-        // this.isTurnUnit = false; // TODO: uncomment later
         this.setGlobalStore('currentCombatTurnValue', nextValue);
 
         if (nextValue === 0) {
-          this.globalStore.initiativeOrder.map(
-            (unit) => (unit.hasMoved = false)
-          );
+          this.globalStore.initiativeOrder.map((unit) => {
+            unit.hasMoved = false;
+            unit.hasAttacked = false;
+          });
         }
       }
     }
