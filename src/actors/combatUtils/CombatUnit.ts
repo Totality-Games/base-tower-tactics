@@ -6,6 +6,7 @@ import type {
   ContextProps,
 } from '../../context/store';
 import { GridMovementSquareChild } from './GridMovementSquares';
+import { GridAttackSquareChild } from './GridAttackSquares';
 
 export class CombatUnit extends Actor {
   globalStore: GlobalStoreType;
@@ -21,7 +22,9 @@ export class CombatUnit extends Actor {
   menuOpen: boolean;
   isInParty: boolean;
   showMovementSquares: boolean;
+  showAttackSquares: boolean;
   hasMoved: boolean;
+  hasAttacked: boolean;
   isTurnUnit: boolean;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
@@ -45,8 +48,11 @@ export class CombatUnit extends Actor {
     this.menuOpen = false;
     this.isInParty = isInParty || false;
     this.showMovementSquares = false;
+    this.showAttackSquares = false;
     this.hasMoved = false;
+    this.hasAttacked = false;
     this.isTurnUnit = false;
+    this.z = 100;
   }
 
   onInitialize(_engine: Engine): void {
@@ -83,6 +89,13 @@ export class CombatUnit extends Actor {
         return;
       }
     }
+
+    if (this.showAttackSquares) {
+      if (this.children.length === 0) {
+        this.createAttackSquares();
+        return;
+      }
+    }
   }
 
   combatActions() {
@@ -116,6 +129,37 @@ export class CombatUnit extends Actor {
         const childRight = new GridMovementSquareChild(vec(32, 0));
         const childUp = new GridMovementSquareChild(vec(0, -32));
         const childDown = new GridMovementSquareChild(vec(0, 32));
+
+        this.addChild(childLeft);
+        this.addChild(childRight);
+        this.addChild(childUp);
+        this.addChild(childDown);
+        break;
+      }
+    }
+  }
+
+  createAttackSquares() {
+    // player movement by dex score
+    switch (this.stats.strength) {
+      case 1: {
+        const childLeft = new GridAttackSquareChild(vec(-32, 0));
+        const childRight = new GridAttackSquareChild(vec(32, 0));
+        const childUp = new GridAttackSquareChild(vec(0, -32));
+        const childDown = new GridAttackSquareChild(vec(0, 32));
+
+        this.addChild(childLeft);
+        this.addChild(childRight);
+        this.addChild(childUp);
+        this.addChild(childDown);
+
+        break;
+      }
+      default: {
+        const childLeft = new GridAttackSquareChild(vec(-32, 0));
+        const childRight = new GridAttackSquareChild(vec(32, 0));
+        const childUp = new GridAttackSquareChild(vec(0, -32));
+        const childDown = new GridAttackSquareChild(vec(0, 32));
 
         this.addChild(childLeft);
         this.addChild(childRight);

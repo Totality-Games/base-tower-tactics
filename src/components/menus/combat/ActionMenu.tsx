@@ -26,7 +26,15 @@ export function ActionMenu() {
   }
 
   function handleAttackClick() {
-    return true;
+    const currentTurnUnit =
+      globalStore.initiativeOrder![globalStore.currentCombatTurnValue];
+
+    if (!currentTurnUnit.hasMoved) {
+      currentTurnUnit.showAttackSquares = true;
+      setGlobalStore('actionMenu', false);
+    } else {
+      alert('already attacked!');
+    }
   }
 
   return (

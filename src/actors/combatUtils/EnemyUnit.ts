@@ -14,7 +14,7 @@ export class EnemyUnit extends CombatUnit {
       this.showMovementSquares = true;
       setTimeout(() => {
         this.combatMovement();
-      }, 3000);
+      }, 1500);
     }
   }
 
