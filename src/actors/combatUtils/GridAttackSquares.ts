@@ -16,7 +16,7 @@ import type { CombatUnit } from './CombatUnit';
 const rect = new Rectangle({
   width: 32,
   height: 32,
-  color: Color.Gray,
+  color: Color.fromRGB(249, 250, 251, 0.35),
 });
 
 export class GridAttackSquareChild extends Actor {
@@ -34,8 +34,8 @@ export class GridAttackSquareChild extends Actor {
   }
 
   onInitialize(_engine: Engine): void {
-    console.log('movement grid created');
-    this.combatMovement();
+    console.log('attack grid created');
+    this.combatAttack();
   }
 
   onPreUpdate(_engine: Engine, _elapsedMs: number): void {
@@ -56,12 +56,13 @@ export class GridAttackSquareChild extends Actor {
     }
   }
 
-  combatMovement() {
+  combatAttack() {
     this.on('pointerdown', () => {
       if (this.parent === null) return;
       const parent = this.parent as CombatUnit;
       if (this.unitInRange) {
-        this.unitInRange.kill();
+        // this.unitInRange.kill();
+        this.unitInRange.currentHP = Number(this.unitInRange.currentHP) - 1;
         parent.hasAttacked = true;
         parent.showAttackSquares = false;
         parent.children.map((child) => child.kill());

@@ -84,7 +84,7 @@ export class BattleOne extends BaseSceneWithContext {
     //   'Wolfkin Guard One'
     // );
     const guardTwo = new Guard(
-      vec(gridCells(9), gridCells(1)),
+      vec(gridCells(2), gridCells(6)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,

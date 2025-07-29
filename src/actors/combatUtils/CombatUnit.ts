@@ -26,6 +26,8 @@ export class CombatUnit extends Actor {
   hasMoved: boolean;
   hasAttacked: boolean;
   isTurnUnit: boolean;
+  totalHP?: number;
+  currentHP?: number;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
       pos,
@@ -58,6 +60,8 @@ export class CombatUnit extends Actor {
   onInitialize(_engine: Engine): void {
     console.log('initialize combat unit');
     this.combatActions();
+    this.totalHP = this.calculateHP();
+    this.currentHP = this.calculateHP();
   }
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
@@ -96,6 +100,10 @@ export class CombatUnit extends Actor {
         return;
       }
     }
+  }
+
+  private calculateHP() {
+    return this.stats.constitution * 2;
   }
 
   combatActions() {

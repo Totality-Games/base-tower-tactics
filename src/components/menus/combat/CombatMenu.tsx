@@ -100,7 +100,8 @@ function CombatUnitDetailUI(props: { unit?: CombatUnit }) {
             <span class='flex flex-col justify-start items-start'>
               <h1
                 class={`text-5xl underline mb-1 ${props.unit?.isInParty ? 'text-slate-700 ' : 'text-red-700'}`}>
-                {props.unit?.name}
+                {props.unit?.name} - {props.unit?.currentHP} /{' '}
+                {props.unit?.totalHP}
               </h1>
 
               <div>
