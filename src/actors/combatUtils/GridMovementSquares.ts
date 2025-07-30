@@ -58,8 +58,6 @@ export class GridMovementSquareChild extends Actor {
       parent.showMovementSquares = false;
       parent.children.map((child) => child.kill());
       parent.removeAllChildren();
-      // TODO: remove
-      parent.isTurnUnit = false;
     });
   }
 }
