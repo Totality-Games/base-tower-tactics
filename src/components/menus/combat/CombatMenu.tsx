@@ -65,10 +65,17 @@ export function CombatMenu() {
                     <>
                       <div
                         data-index={index()}
-                        class={`text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
+                        class={`flex flex-row items-start justify-around gap-4 text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
                         onclick={() => handleUnitNameClick(combatUnit)}>
-                        {combatUnit === currentTurnUnit() ? 'ME!' : ''}{' '}
-                        {combatUnit.name}
+                        <img
+                          src={combatUnit.characterPortrait}
+                          alt={combatUnit.name}
+                          class='border-2'
+                        />
+                        <span>
+                          {combatUnit === currentTurnUnit() ? 'ME!' : ''}{' '}
+                          {combatUnit.name}
+                        </span>
                       </div>
                     </>
                   )}

@@ -37,6 +37,7 @@ export class CombatUnit extends Actor {
   totalHP?: number;
   currentHP?: number;
   damageVisual: Label;
+  characterPortrait: string;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
     super({
       pos,
@@ -58,6 +59,7 @@ export class CombatUnit extends Actor {
     this.scale = new Vector(1, 1);
     this.menuOpen = false;
     this.isInParty = isInParty || false;
+    this.characterPortrait = '/assets/images/portraits/64x64/006.png';
     this.showMovementSquares = false;
     this.showAttackSquares = false;
     this.hasMoved = false;
