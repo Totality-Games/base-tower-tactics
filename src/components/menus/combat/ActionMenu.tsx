@@ -66,7 +66,10 @@ export function ActionMenu() {
   }
 
   function handleStayClick() {
-    return;
+    const currentTurnUnit =
+      globalStore.initiativeOrder![globalStore.currentCombatTurnValue];
+    currentTurnUnit.hasAttacked = true;
+    setGlobalStore('actionMenu', false);
   }
 
   return (
@@ -105,7 +108,7 @@ export function ActionMenu() {
                 <div
                   class='text-3xl cursor-pointer m-4 text-slate-700 hover:text-black'
                   onclick={handleStayClick}>
-                  Stay
+                  No Action
                 </div>
               </span>
             </div>
