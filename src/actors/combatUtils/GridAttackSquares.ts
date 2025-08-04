@@ -12,6 +12,7 @@ import {
   Vector,
 } from 'excalibur';
 import type { CombatUnit } from './CombatUnit';
+import { produce } from 'solid-js/store';
 // import type { CombatUnit } from './CombatUnit';
 
 const rect = new Rectangle({
@@ -64,7 +65,20 @@ export class GridAttackSquareChild extends Actor {
       const parent = this.parent as CombatUnit;
       if (this.unitInRange) {
         const unitInRange = this.unitInRange;
-        unitInRange.currentHP = Number(unitInRange.currentHP) - 1;
+
+        // produce
+        parent.setGlobalStore(
+          'initiativeOrder',
+          produce((units) => {
+            return units?.map((unit) => {
+              if (unit === unitInRange) {
+                unit.currentHP += -1;
+              }
+              return unit;
+            });
+          })
+        );
+
         unitInRange.actions.flash(Color.Red, 750);
         unitInRange.damageVisual.text = '-1';
         unitInRange.addChild(unitInRange.damageVisual as Label);

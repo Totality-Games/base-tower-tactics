@@ -8,7 +8,7 @@ export function CombatMenu() {
   const [combatUnitDetails, setCombatUnitDetails] = createSignal<
     CombatUnit | undefined
   >(undefined);
-  const [currentTurnUnit, setCurrentTurnUnit] = createSignal<
+  const [_currentTurnUnit, setCurrentTurnUnit] = createSignal<
     CombatUnit | undefined
   >(undefined);
 
@@ -16,7 +16,6 @@ export function CombatMenu() {
     if (globalStore.initiativeOrder) {
       const turnUnit =
         globalStore.initiativeOrder?.[globalStore.currentCombatTurnValue];
-
       setCurrentTurnUnit(turnUnit);
     }
   });
@@ -57,28 +56,34 @@ export function CombatMenu() {
               <span class='flex flex-col justify-start items-start'>
                 <h1 class='text-5xl underline mb-1'>Combat Menu</h1>
                 <h2 class='text-4xl mb-1'>Initiative Order:</h2>
+
                 <p>{globalStore.currentCombatTurnValue}</p>
                 <For
                   each={globalStore.initiativeOrder}
                   fallback={<></>}>
-                  {(combatUnit, index) => (
-                    <>
-                      <div
-                        data-index={index()}
-                        class={`flex flex-row items-start justify-around gap-4 text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
-                        onclick={() => handleUnitNameClick(combatUnit)}>
-                        <img
-                          src={combatUnit.characterPortrait}
-                          alt={combatUnit.name}
-                          class='border-2'
-                        />
-                        <span>
-                          {combatUnit === currentTurnUnit() ? 'ME!' : ''}{' '}
-                          {combatUnit.name}
-                        </span>
-                      </div>
-                    </>
-                  )}
+                  {(combatUnit, index) => {
+                    return (
+                      <>
+                        <p class='bg-white'>
+                          {globalStore.initiativeOrder?.[0].currentHP}
+                        </p>
+                        <div
+                          data-index={index}
+                          class={`flex flex-row items-start justify-around gap-4 text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
+                          onclick={() => handleUnitNameClick(combatUnit)}>
+                          <img
+                            src={combatUnit.characterPortrait}
+                            alt={combatUnit.name}
+                            class='border-2'
+                          />
+                          <span class='w-full'>
+                            {combatUnit.name}
+                            {combatUnit.currentHP}
+                          </span>
+                        </div>
+                      </>
+                    );
+                  }}
                 </For>
               </span>
             </div>

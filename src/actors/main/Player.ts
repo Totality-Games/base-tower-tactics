@@ -29,6 +29,7 @@ export class MainGuy extends CombatUnit {
     super(pos, context, isInParty);
     this.resources = resources;
     this.name = 'Vajhir';
+    this.characterPortrait = '/assets/images/portraits/64x64/006.png';
   }
 
   onInitialize(engine: Engine): void {

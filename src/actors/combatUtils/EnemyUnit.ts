@@ -69,7 +69,7 @@ export class EnemyUnit extends CombatUnit {
         enemySquares[Math.floor(Math.random() * enemySquares.length - 1)];
 
       const unitInRange = randomChild.unitInRange!;
-      unitInRange.currentHP = Number(unitInRange.currentHP) - 1;
+      unitInRange.currentHP = unitInRange.currentHP - 1;
       unitInRange.actions.flash(Color.Red, 750);
       unitInRange.damageVisual.text = '-1';
       unitInRange.addChild(unitInRange.damageVisual as Label);

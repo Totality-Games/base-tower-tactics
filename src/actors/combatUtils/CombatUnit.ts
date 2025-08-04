@@ -15,6 +15,7 @@ import type {
 } from '../../context/store';
 import { GridMovementSquareChild } from './GridMovementSquares';
 import { GridAttackSquareChild } from './GridAttackSquares';
+import { createSignal } from 'solid-js';
 
 export class CombatUnit extends Actor {
   globalStore: GlobalStoreType;
@@ -34,8 +35,14 @@ export class CombatUnit extends Actor {
   hasMoved: boolean;
   hasAttacked: boolean;
   isTurnUnit: boolean;
-  totalHP?: number;
-  currentHP?: number;
+  totalHP: number;
+  #currentHP = createSignal<number>(0);
+  get currentHP() {
+    return this.#currentHP[0]();
+  }
+  set currentHP(value: number) {
+    this.#currentHP[1](value);
+  }
   damageVisual: Label;
   characterPortrait: string;
   constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
@@ -59,13 +66,15 @@ export class CombatUnit extends Actor {
     this.scale = new Vector(1, 1);
     this.menuOpen = false;
     this.isInParty = isInParty || false;
-    this.characterPortrait = '/assets/images/portraits/64x64/006.png';
+    this.characterPortrait = '/assets/images/portraits/64x64/001.png';
     this.showMovementSquares = false;
     this.showAttackSquares = false;
     this.hasMoved = false;
     this.hasAttacked = false;
     this.isTurnUnit = false;
     this.z = 100;
+    this.totalHP = this.calculateHP();
+    this.currentHP = this.calculateHP();
     this.damageVisual = new Label({
       color: Color.Red,
       text: '',
@@ -76,8 +85,6 @@ export class CombatUnit extends Actor {
   onInitialize(_engine: Engine): void {
     console.log('initialize combat unit');
     this.combatActions();
-    this.totalHP = this.calculateHP();
-    this.currentHP = this.calculateHP();
   }
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
