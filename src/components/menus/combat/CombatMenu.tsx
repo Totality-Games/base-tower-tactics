@@ -57,16 +57,12 @@ export function CombatMenu() {
                 <h1 class='text-5xl underline mb-1'>Combat Menu</h1>
                 <h2 class='text-4xl mb-1'>Initiative Order:</h2>
 
-                <p>{globalStore.currentCombatTurnValue}</p>
                 <For
                   each={globalStore.initiativeOrder}
                   fallback={<></>}>
                   {(combatUnit, index) => {
                     return (
                       <>
-                        <p class='bg-white'>
-                          {globalStore.initiativeOrder?.[0].currentHP}
-                        </p>
                         <div
                           data-index={index}
                           class={`flex flex-row items-start justify-around gap-4 text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
@@ -78,7 +74,18 @@ export function CombatMenu() {
                           />
                           <span class='w-full'>
                             {combatUnit.name}
-                            {combatUnit.currentHP}
+
+                            <span class='flex flex-row gap-4'>
+                              <label for={`${combatUnit.name}-hp`}>HP:</label>
+
+                              <meter
+                                id={`${combatUnit.name}-hp`}
+                                min='0'
+                                max={combatUnit.totalHP}
+                                value={combatUnit.currentHP}>
+                                {combatUnit.currentHP}
+                              </meter>
+                            </span>
                           </span>
                         </div>
                       </>
