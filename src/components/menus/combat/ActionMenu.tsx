@@ -69,6 +69,7 @@ export function ActionMenu() {
     const currentTurnUnit =
       globalStore.initiativeOrder![globalStore.currentCombatTurnValue];
     currentTurnUnit.hasAttacked = true;
+    setIsMoving(false);
     setGlobalStore('actionMenu', false);
   }
 
