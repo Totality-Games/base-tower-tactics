@@ -35,12 +35,6 @@ export class EnemyUnit extends CombatUnit {
         }, 1000);
       }
       this.takingAction = true;
-
-      // if no enemy in range, move first
-
-      //    if an enemy is in range, attack.
-
-      // end turn
     }
   }
 

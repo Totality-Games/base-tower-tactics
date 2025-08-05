@@ -71,17 +71,17 @@ export class BattleOne extends BaseSceneWithContext {
       },
     });
 
-    // const guardOne = new Guard(
-    //   vec(gridCells(8), gridCells(1)),
-    //   {
-    //     globalStore: this.globalStore,
-    //     setGlobalStore: this.setGlobalStore,
-    //   },
-    //   wolfkinSpriteSheet,
-    //   'Wolfkin Guard One'
-    // );
+    const guardOne = new Guard(
+      vec(gridCells(1), gridCells(4)),
+      {
+        globalStore: this.globalStore,
+        setGlobalStore: this.setGlobalStore,
+      },
+      wolfkinSpriteSheet,
+      'Wolfkin Guard One'
+    );
     const guardTwo = new Guard(
-      vec(gridCells(2), gridCells(3)),
+      vec(gridCells(2), gridCells(6)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
@@ -90,10 +90,7 @@ export class BattleOne extends BaseSceneWithContext {
       'Wolfkin Guard Two'
     );
 
-    return [
-      // guardOne,
-      guardTwo,
-    ];
+    return [guardOne, guardTwo];
   }
 
   private setCameraBoundaries(engine: Engine) {
