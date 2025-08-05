@@ -60,6 +60,7 @@ export function ActionMenu() {
     if (!currentTurnUnit.hasAttacked) {
       currentTurnUnit.showAttackSquares = true;
       setGlobalStore('actionMenu', false);
+      setIsMoving(false);
     } else {
       alert('already attacked!');
     }
