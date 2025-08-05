@@ -89,16 +89,7 @@ export class CombatUnit extends Actor {
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
     if (this.currentHP === 0) {
-      this.actions.flash(Color.Red, 750).die();
-      this.setGlobalStore('initiativeOrder', (units) => {
-        if (!units?.length) return;
-        const newOrder = units.filter((unit) => {
-          return this !== unit;
-        });
-        this.setGlobalStore('currentCombatUnitTotal', newOrder.length - 1);
-        console.log(this.globalStore.currentCombatTurnValue);
-        return newOrder;
-      });
+      this.unitDeath();
     }
 
     if (
@@ -158,6 +149,19 @@ export class CombatUnit extends Actor {
         }
       });
     }
+  }
+
+  unitDeath() {
+    this.actions.flash(Color.Red, 750).die();
+    this.setGlobalStore('initiativeOrder', (units) => {
+      if (!units?.length) return;
+      const newOrder = units.filter((unit) => {
+        return this !== unit;
+      });
+      this.setGlobalStore('currentCombatUnitTotal', newOrder.length - 1);
+      console.log(this.globalStore.currentCombatTurnValue);
+      return newOrder;
+    });
   }
 
   createMovementSquares() {

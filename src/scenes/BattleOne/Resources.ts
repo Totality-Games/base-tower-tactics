@@ -11,6 +11,7 @@ import battleOneMapPath from '/assets/tmx/combat1.tmx?url';
 
 // import spritesheets
 import heroPath from '/assets/sprites/characters/main/player/Character006.png?url';
+import delsaranPath from '/assets/sprites/characters/main/Delsaran/Character041.png?url';
 import wolfkinPath from '/assets/sprites/characters/wolfkin/beast_tribe_1.png?url';
 import castleInterriorsSetPath from '/assets/tilesets/RPG_Buildings_CASTLE_v1.0/castle_interriors.png?url';
 
@@ -19,6 +20,11 @@ import castleInterriorsTsxPath from '/assets/tsx/castle_interriors.tsx?url';
 
 export const battleOneResources = {
   HeroSpriteSheetPng: new ImageSource(heroPath, false, ImageFiltering.Pixel),
+  DelsaranSpriteSheetPng: new ImageSource(
+    delsaranPath,
+    false,
+    ImageFiltering.Pixel
+  ),
   WolfkinSpriteSheetPng: new ImageSource(
     wolfkinPath,
     false,

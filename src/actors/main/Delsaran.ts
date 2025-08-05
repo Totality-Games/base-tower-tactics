@@ -5,20 +5,26 @@ import {
   Sprite,
   SpriteSheet,
   Vector,
-} from "excalibur";
-import { DIRECTIONS, MOVEMENT } from "../../constants";
-import { CombatUnit } from "../combatUtils/CombatUnit";
-import type { ContextProps } from "../../context/store";
+} from 'excalibur';
+import { DIRECTIONS, MOVEMENT } from '../../constants';
+import { CombatUnit } from '../combatUtils/CombatUnit';
+import type { ContextProps } from '../../context/store';
 
 export class Delsaran extends CombatUnit {
   movement: MOVEMENT;
   resources: ImageSource;
-  constructor(pos: Vector, resources: ImageSource, context: ContextProps) {
-    super(pos, context);
+  constructor(
+    pos: Vector,
+    resources: ImageSource,
+    context: ContextProps,
+    isInParty?: boolean
+  ) {
+    super(pos, context, isInParty);
 
     this.resources = resources;
-    this.name = "Delsaran";
+    this.name = 'Delsaran';
     this.movement = MOVEMENT.IDLE;
+    this.characterPortrait = '/assets/images/portraits/64x64/011.png';
   }
 
   onInitialize(engine: Engine): void {
@@ -74,7 +80,7 @@ export class Delsaran extends CombatUnit {
         },
       ],
     });
-    this.graphics.add("down-idle", downIdle);
+    this.graphics.add('down-idle', downIdle);
 
     const leftIdle = new Animation({
       frames: [
@@ -84,7 +90,7 @@ export class Delsaran extends CombatUnit {
         },
       ],
     });
-    this.graphics.add("left-idle", leftIdle);
+    this.graphics.add('left-idle', leftIdle);
 
     const rightIdle = new Animation({
       frames: [
@@ -94,7 +100,7 @@ export class Delsaran extends CombatUnit {
         },
       ],
     });
-    this.graphics.add("right-idle", rightIdle);
+    this.graphics.add('right-idle', rightIdle);
 
     const upIdle = new Animation({
       frames: [
@@ -104,7 +110,7 @@ export class Delsaran extends CombatUnit {
         },
       ],
     });
-    this.graphics.add("up-idle", upIdle);
+    this.graphics.add('up-idle', upIdle);
 
     const leftWalk = new Animation({
       frames: [
@@ -126,6 +132,6 @@ export class Delsaran extends CombatUnit {
         },
       ],
     });
-    this.graphics.add("left-walk", leftWalk);
+    this.graphics.add('left-walk', leftWalk);
   }
 }
