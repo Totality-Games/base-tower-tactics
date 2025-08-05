@@ -36,6 +36,8 @@ export class EnemyUnit extends CombatUnit {
       }
 
       if (this.hasMoved && this.shouldMoveFirst) {
+        this.showAttackSquares = false;
+        this.showMovementSquares = false;
         this.hasAttacked = true;
       }
     }
@@ -56,8 +58,8 @@ export class EnemyUnit extends CombatUnit {
 
   async combatAttack(engine: Engine) {
     const children = this.children as GridAttackSquareChild[];
-    const enemySquares = children.filter(async (square) => {
-      return square.unitInRange !== undefined;
+    const enemySquares = children.filter((square) => {
+      return Boolean(square.unitInRange);
     });
 
     if (!enemySquares.length) {

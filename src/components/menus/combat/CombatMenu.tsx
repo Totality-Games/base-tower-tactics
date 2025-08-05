@@ -8,7 +8,7 @@ export function CombatMenu() {
   const [combatUnitDetails, setCombatUnitDetails] = createSignal<
     CombatUnit | undefined
   >(undefined);
-  const [_currentTurnUnit, setCurrentTurnUnit] = createSignal<
+  const [currentTurnUnit, setCurrentTurnUnit] = createSignal<
     CombatUnit | undefined
   >(undefined);
 
@@ -65,7 +65,7 @@ export function CombatMenu() {
                       <>
                         <div
                           data-index={index}
-                          class={`flex flex-row items-start justify-around gap-4 text-3xl cursor-pointer m-4 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'}`}
+                          class={`flex flex-row items-start justify-around gap-4 text-3xl cursor-pointer m-4 p-2 ${combatUnit.isInParty ? 'text-slate-700 hover:text-black' : 'text-red-700 hover:text-red-900'} ${currentTurnUnit() === combatUnit ? 'border-2' : 'border-white/10 border-2'}`}
                           onclick={() => handleUnitNameClick(combatUnit)}>
                           <img
                             src={combatUnit.characterPortrait}
