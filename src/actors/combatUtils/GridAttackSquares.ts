@@ -79,6 +79,7 @@ export class GridAttackSquareChild extends Actor {
           })
         );
 
+        parent.attackSound.play();
         unitInRange.actions.flash(Color.Red, 750);
         unitInRange.damageVisual.text = '-1';
         unitInRange.addChild(unitInRange.damageVisual as Label);

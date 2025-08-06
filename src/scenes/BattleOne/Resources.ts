@@ -1,5 +1,5 @@
 import { TiledResource } from '@excaliburjs/plugin-tiled';
-import { ImageFiltering, ImageSource, Resource } from 'excalibur';
+import { ImageFiltering, ImageSource, Resource, Sound } from 'excalibur';
 
 // import map
 import battleOneMapPath from '/assets/tmx/combat1.tmx?url';
@@ -8,6 +8,9 @@ import battleOneMapPath from '/assets/tmx/combat1.tmx?url';
 // import harborMP3 from '/assets/audio/music/Harbor 1 - Treasure Island (Loopable).mp3';
 // import harborOgg from '/assets/audio/music/Harbor 1 - Treasure Island (Loopable).ogg';
 // import harborWav from '/assets/audio/music/Harbor 1 - Treasure Island (Loopable).wav';
+
+// import sounds
+import attackSound from '/assets/audio/sounds/melee/Stab4-1.wav';
 
 // import spritesheets
 import heroPath from '/assets/sprites/characters/main/player/Character006.png?url';
@@ -31,6 +34,7 @@ export const battleOneResources = {
     ImageFiltering.Pixel
   ),
   //   Music: new Sound(harborMP3, harborWav, harborOgg),
+  AttackSound: new Sound(attackSound),
   TiledMap: new TiledResource(battleOneMapPath, {
     useTilemapCameraStrategy: true,
     pathMap: [

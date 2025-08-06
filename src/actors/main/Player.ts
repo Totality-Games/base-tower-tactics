@@ -5,6 +5,7 @@ import {
   Engine,
   ImageSource,
   Side,
+  Sound,
   Sprite,
   SpriteSheet,
   Vector,
@@ -17,16 +18,18 @@ export class MainGuy extends CombatUnit {
   public nearToObject: unknown;
   public resources: {
     HeroSpriteSheetPng: ImageSource;
+    AttackSound: Sound;
   };
   constructor(
     pos: Vector,
     resources: {
       HeroSpriteSheetPng: ImageSource;
+      AttackSound: Sound;
     },
     context: ContextProps,
     isInParty?: boolean
   ) {
-    super(pos, context, isInParty);
+    super(pos, context, resources.AttackSound, isInParty);
     this.resources = resources;
     this.name = 'Vajhir';
     this.characterPortrait = '/assets/images/portraits/64x64/006.png';

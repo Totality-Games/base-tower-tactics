@@ -1,24 +1,35 @@
-import { Animation, Engine, Sprite, SpriteSheet, Vector } from 'excalibur';
+import {
+  Animation,
+  Engine,
+  ImageSource,
+  Sound,
+  Sprite,
+  SpriteSheet,
+  Vector,
+} from 'excalibur';
 import { DIRECTIONS } from '../../constants';
 import type { ContextProps } from '../../context/store';
 import { EnemyUnit } from '../combatUtils/EnemyUnit';
 
 export class Guard extends EnemyUnit {
   direction: DIRECTIONS;
-  spriteSheet: SpriteSheet;
+  resources: { WolfkinSpriteSheetPng: ImageSource; AttackSound: Sound };
   constructor(
     pos: Vector,
     context: ContextProps,
-    spriteSheet: SpriteSheet,
+    resources: {
+      WolfkinSpriteSheetPng: ImageSource;
+      AttackSound: Sound;
+    },
     name: string,
     direction?: DIRECTIONS
   ) {
-    super(pos, context);
+    super(pos, context, resources.AttackSound);
 
     this.z = 100;
     this.scale = new Vector(1, 1);
     this.direction = direction ?? DIRECTIONS.DOWN;
-    this.spriteSheet = spriteSheet;
+    this.resources = resources;
     this.name = name;
     this.stats.constitution = 2;
   }
@@ -34,10 +45,20 @@ export class Guard extends EnemyUnit {
   }
 
   private addAnimations() {
+    const wolfkinSpriteSheet = SpriteSheet.fromImageSource({
+      image: this.resources.WolfkinSpriteSheetPng as ImageSource,
+      grid: {
+        spriteWidth: 26,
+        spriteHeight: 36,
+        rows: 8,
+        columns: 12,
+      },
+    });
+
     const downIdle = new Animation({
       frames: [
         {
-          graphic: this.spriteSheet.getSprite(10, 0), // downIdle is 10,0
+          graphic: wolfkinSpriteSheet.getSprite(10, 0), // downIdle is 10,0
           duration: 150,
         },
       ],
@@ -47,7 +68,7 @@ export class Guard extends EnemyUnit {
     const leftIdle = new Animation({
       frames: [
         {
-          graphic: this.spriteSheet.getSprite(10, 1) as Sprite,
+          graphic: wolfkinSpriteSheet.getSprite(10, 1) as Sprite,
           duration: 150,
         },
       ],
@@ -57,7 +78,7 @@ export class Guard extends EnemyUnit {
     const rightIdle = new Animation({
       frames: [
         {
-          graphic: this.spriteSheet.getSprite(10, 2) as Sprite,
+          graphic: wolfkinSpriteSheet.getSprite(10, 2) as Sprite,
           duration: 150,
         },
       ],
@@ -67,7 +88,7 @@ export class Guard extends EnemyUnit {
     const upIdle = new Animation({
       frames: [
         {
-          graphic: this.spriteSheet.getSprite(10, 3) as Sprite,
+          graphic: wolfkinSpriteSheet.getSprite(10, 3) as Sprite,
           duration: 150,
         },
       ],

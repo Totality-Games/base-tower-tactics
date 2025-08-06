@@ -82,6 +82,7 @@ export class EnemyUnit extends CombatUnit {
         unitInRange.damageVisual.text = '-1';
         unitInRange.addChild(unitInRange.damageVisual as Label);
 
+        this.attackSound.play();
         engine.currentScene.camera.shake(2, 2, 250);
 
         this.showAttackSquares = false;

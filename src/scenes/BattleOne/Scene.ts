@@ -2,8 +2,6 @@ import {
   BoundingBox,
   DefaultLoader,
   Engine,
-  ImageSource,
-  SpriteSheet,
   vec,
   type SceneActivationContext,
 } from 'excalibur';
@@ -29,18 +27,18 @@ export class BattleOne extends BaseSceneWithContext {
       },
       true // isInParty
     );
-    const player2 = new Delsaran(
-      vec(gridCells(1), gridCells(5)),
-      battleOneResources.DelsaranSpriteSheetPng,
-      {
-        globalStore: this.globalStore,
-        setGlobalStore: this.setGlobalStore,
-      },
-      true // isInParty
-    );
+    // const player2 = new Delsaran(
+    //   vec(gridCells(1), gridCells(5)),
+    //   battleOneResources.DelsaranSpriteSheetPng,
+    //   {
+    //     globalStore: this.globalStore,
+    //     setGlobalStore: this.setGlobalStore,
+    //   },
+    //   true // isInParty
+    // );
     engine.currentScene.add(player);
-    engine.currentScene.add(player2);
-    this.setGlobalStore('initiativeOrder', [player, player2]);
+    // engine.currentScene.add(player2);
+    this.setGlobalStore('initiativeOrder', [player]);
 
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 
@@ -72,23 +70,13 @@ export class BattleOne extends BaseSceneWithContext {
   onPreUpdate(_engine: Engine, _delta: number): void {}
 
   private setupEnemies() {
-    const wolfkinSpriteSheet = SpriteSheet.fromImageSource({
-      image: battleOneResources.WolfkinSpriteSheetPng as ImageSource,
-      grid: {
-        spriteWidth: 26,
-        spriteHeight: 36,
-        rows: 8,
-        columns: 12,
-      },
-    });
-
     const guardOne = new Guard(
       vec(gridCells(1), gridCells(4)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
       },
-      wolfkinSpriteSheet,
+      battleOneResources,
       'Wolfkin Guard One'
     );
     const guardTwo = new Guard(
@@ -97,7 +85,7 @@ export class BattleOne extends BaseSceneWithContext {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
       },
-      wolfkinSpriteSheet,
+      battleOneResources,
       'Wolfkin Guard Two'
     );
 

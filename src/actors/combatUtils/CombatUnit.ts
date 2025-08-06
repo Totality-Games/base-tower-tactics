@@ -6,6 +6,7 @@ import {
   vec,
   Label,
   Color,
+  Sound,
 } from 'excalibur';
 import { DIRECTIONS, type CLASSES } from '../../constants';
 import type {
@@ -45,7 +46,13 @@ export class CombatUnit extends Actor {
   }
   damageVisual: Label;
   characterPortrait: string;
-  constructor(pos: Vector, context: ContextProps, isInParty?: boolean) {
+  attackSound: Sound;
+  constructor(
+    pos: Vector,
+    context: ContextProps,
+    attackSound: Sound,
+    isInParty?: boolean
+  ) {
     super({
       pos,
       width: 32,
@@ -67,6 +74,7 @@ export class CombatUnit extends Actor {
     this.menuOpen = false;
     this.isInParty = isInParty || false;
     this.characterPortrait = '/assets/images/portraits/64x64/001.png';
+    this.attackSound = attackSound;
     this.showMovementSquares = false;
     this.showAttackSquares = false;
     this.hasMoved = false;
