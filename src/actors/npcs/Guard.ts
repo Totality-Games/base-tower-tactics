@@ -20,11 +20,12 @@ export class Guard extends EnemyUnit {
     resources: {
       WolfkinSpriteSheetPng: ImageSource;
       AttackSound: Sound;
+      DeathSound: Sound;
     },
     name: string,
     direction?: DIRECTIONS
   ) {
-    super(pos, context, resources.AttackSound);
+    super(pos, context, resources);
 
     this.z = 100;
     this.scale = new Vector(1, 1);

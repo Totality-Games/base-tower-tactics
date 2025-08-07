@@ -19,17 +19,19 @@ export class MainGuy extends CombatUnit {
   public resources: {
     HeroSpriteSheetPng: ImageSource;
     AttackSound: Sound;
+    DeathSound: Sound;
   };
   constructor(
     pos: Vector,
     resources: {
       HeroSpriteSheetPng: ImageSource;
       AttackSound: Sound;
+      DeathSound: Sound;
     },
     context: ContextProps,
     isInParty?: boolean
   ) {
-    super(pos, context, resources.AttackSound, isInParty);
+    super(pos, context, resources, isInParty);
     this.resources = resources;
     this.name = 'Vajhir';
     this.characterPortrait = '/assets/images/portraits/64x64/006.png';

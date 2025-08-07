@@ -11,7 +11,7 @@ import { SCENE_STATE } from '../../constants';
 import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
 import { Guard } from '../../actors/npcs/Guard';
-import { Delsaran } from '../../actors/main/Delsaran';
+// import { Delsaran } from '../../actors/main/Delsaran';
 
 export class BattleOne extends BaseSceneWithContext {
   onInitialize(engine: Engine): void {

@@ -19,6 +19,7 @@ import { GridAttackSquareChild } from './GridAttackSquares';
 import { createSignal } from 'solid-js';
 
 export class CombatUnit extends Actor {
+  #isDying: boolean;
   globalStore: GlobalStoreType;
   setGlobalStore: SetGlobalStoreType;
   public direction: DIRECTIONS;
@@ -47,10 +48,14 @@ export class CombatUnit extends Actor {
   damageVisual: Label;
   characterPortrait: string;
   attackSound: Sound;
+  deathSound: Sound;
   constructor(
     pos: Vector,
     context: ContextProps,
-    attackSound: Sound,
+    sounds: {
+      AttackSound: Sound;
+      DeathSound: Sound;
+    },
     isInParty?: boolean
   ) {
     super({
@@ -60,6 +65,7 @@ export class CombatUnit extends Actor {
       collisionType: CollisionType.Fixed,
     });
 
+    this.#isDying = false;
     this.z = 100;
     this.direction = DIRECTIONS.DOWN;
     this.globalStore = context.globalStore;
@@ -74,7 +80,8 @@ export class CombatUnit extends Actor {
     this.menuOpen = false;
     this.isInParty = isInParty || false;
     this.characterPortrait = '/assets/images/portraits/64x64/001.png';
-    this.attackSound = attackSound;
+    this.attackSound = sounds.AttackSound;
+    this.deathSound = sounds.DeathSound;
     this.showMovementSquares = false;
     this.showAttackSquares = false;
     this.hasMoved = false;
@@ -96,7 +103,7 @@ export class CombatUnit extends Actor {
   }
 
   onPreUpdate(_engine: Engine, _elapsed: number): void {
-    if (this.currentHP === 0) {
+    if (this.currentHP === 0 && !this.#isDying) {
       this.unitDeath();
     }
 
@@ -160,6 +167,10 @@ export class CombatUnit extends Actor {
   }
 
   unitDeath() {
+    this.#isDying = true;
+    setTimeout(() => {
+      this.deathSound.play();
+    }, 1000);
     this.actions.flash(Color.Red, 750).die();
     this.setGlobalStore('initiativeOrder', (units) => {
       if (!units?.length) return;

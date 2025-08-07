@@ -11,6 +11,7 @@ import battleOneMapPath from '/assets/tmx/combat1.tmx?url';
 
 // import sounds
 import attackSound from '/assets/audio/sounds/melee/Stab4-1.wav';
+import partyDeathSound from '/assets/audio/sounds/death/Quest_Abandoned.wav';
 
 // import spritesheets
 import heroPath from '/assets/sprites/characters/main/player/Character006.png?url';
@@ -35,6 +36,7 @@ export const battleOneResources = {
   ),
   //   Music: new Sound(harborMP3, harborWav, harborOgg),
   AttackSound: new Sound(attackSound),
+  DeathSound: new Sound(partyDeathSound),
   TiledMap: new TiledResource(battleOneMapPath, {
     useTilemapCameraStrategy: true,
     pathMap: [
