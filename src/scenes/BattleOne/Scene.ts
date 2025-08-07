@@ -58,11 +58,12 @@ export class BattleOne extends BaseSceneWithContext {
   }
 
   async onActivate(_context: SceneActivationContext<unknown>): Promise<void> {
+    this.setGlobalStore('currentSong', () => battleOneResources.Music);
     this.setGlobalStore('sceneState', SCENE_STATE.COMBAT);
-    // if (this.globalStore.currentSong?.isLoaded()) {
-    //   this.globalStore.currentSong.loop = true;
-    //   this.globalStore.currentSong?.play(0.1); // begin Ironclaw Port music
-    // }
+    if (this.globalStore.currentSong?.isLoaded()) {
+      this.globalStore.currentSong.loop = true;
+      this.globalStore.currentSong?.play(0.1); // begin Chapter One Combat music
+    }
   }
 
   onDeactivate(_context: SceneActivationContext): void {}

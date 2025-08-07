@@ -5,9 +5,9 @@ import { ImageFiltering, ImageSource, Resource, Sound } from 'excalibur';
 import battleOneMapPath from '/assets/tmx/combat1.tmx?url';
 
 // // import music
-// import harborMP3 from '/assets/audio/music/Harbor 1 - Treasure Island (Loopable).mp3';
-// import harborOgg from '/assets/audio/music/Harbor 1 - Treasure Island (Loopable).ogg';
-// import harborWav from '/assets/audio/music/Harbor 1 - Treasure Island (Loopable).wav';
+import combatOneMP3 from '/assets/audio/music/combat/RPG Combat 1 - Training Wheels (Loopable).mp3';
+import combatOneOgg from '/assets/audio/music/combat/RPG Combat 1 - Training Wheels (Loopable).ogg';
+import combatOneWav from '/assets/audio/music/combat/RPG Combat 1 - Training Wheels (Loopable).wav';
 
 // import sounds
 import attackSound from '/assets/audio/sounds/melee/Stab4-1.wav';
@@ -34,7 +34,7 @@ export const battleOneResources = {
     false,
     ImageFiltering.Pixel
   ),
-  //   Music: new Sound(harborMP3, harborWav, harborOgg),
+  Music: new Sound(combatOneMP3, combatOneWav, combatOneOgg),
   AttackSound: new Sound(attackSound),
   DeathSound: new Sound(partyDeathSound),
   TiledMap: new TiledResource(battleOneMapPath, {
