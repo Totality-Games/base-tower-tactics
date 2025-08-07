@@ -11,7 +11,7 @@ import { SCENE_STATE } from '../../constants';
 import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
 import { Guard } from '../../actors/npcs/Guard';
-// import { Delsaran } from '../../actors/main/Delsaran';
+import { Delsaran } from '../../actors/main/Delsaran';
 
 export class BattleOne extends BaseSceneWithContext {
   onInitialize(engine: Engine): void {
@@ -27,18 +27,18 @@ export class BattleOne extends BaseSceneWithContext {
       },
       true // isInParty
     );
-    // const player2 = new Delsaran(
-    //   vec(gridCells(1), gridCells(5)),
-    //   battleOneResources.DelsaranSpriteSheetPng,
-    //   {
-    //     globalStore: this.globalStore,
-    //     setGlobalStore: this.setGlobalStore,
-    //   },
-    //   true // isInParty
-    // );
+    const player2 = new Delsaran(
+      vec(gridCells(1), gridCells(5)),
+      battleOneResources,
+      {
+        globalStore: this.globalStore,
+        setGlobalStore: this.setGlobalStore,
+      },
+      true // isInParty
+    );
     engine.currentScene.add(player);
-    // engine.currentScene.add(player2);
-    this.setGlobalStore('initiativeOrder', [player]);
+    engine.currentScene.add(player2);
+    this.setGlobalStore('initiativeOrder', [player, player2]);
 
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 

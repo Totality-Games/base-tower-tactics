@@ -2,6 +2,7 @@ import {
   Animation,
   Engine,
   ImageSource,
+  Sound,
   Sprite,
   SpriteSheet,
   Vector,
@@ -12,14 +13,22 @@ import type { ContextProps } from '../../context/store';
 
 export class Delsaran extends CombatUnit {
   movement: MOVEMENT;
-  resources: ImageSource;
+  resources: {
+    DelsaranSpriteSheetPng: ImageSource;
+    AttackSound: Sound;
+    DeathSound: Sound;
+  };
   constructor(
     pos: Vector,
-    resources: ImageSource,
+    resources: {
+      DelsaranSpriteSheetPng: ImageSource;
+      AttackSound: Sound;
+      DeathSound: Sound;
+    },
     context: ContextProps,
     isInParty?: boolean
   ) {
-    super(pos, context, isInParty);
+    super(pos, context, resources, isInParty);
 
     this.resources = resources;
     this.name = 'Delsaran';
@@ -32,7 +41,8 @@ export class Delsaran extends CombatUnit {
     this.addAnimations();
   }
 
-  onPreUpdate(_engine: Engine, _elapsedMs: number): void {
+  onPreUpdate(engine: Engine, elapsedMs: number): void {
+    super.onPreUpdate(engine, elapsedMs);
     this.movement = MOVEMENT.IDLE;
     this.graphics.use(`${this.direction}-${this.movement}`);
   }
@@ -63,7 +73,7 @@ export class Delsaran extends CombatUnit {
 
   addAnimations() {
     const delsaranSpriteSheet = SpriteSheet.fromImageSource({
-      image: this.resources as ImageSource,
+      image: this.resources.DelsaranSpriteSheetPng as ImageSource,
       grid: {
         spriteWidth: 24,
         spriteHeight: 32,
