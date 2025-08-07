@@ -70,11 +70,23 @@ export class CombatUnit extends Actor {
     this.direction = DIRECTIONS.DOWN;
     this.globalStore = context.globalStore;
     this.setGlobalStore = context.setGlobalStore;
+    /**
+     * STATS:
+     * A. All 1's for non-specialist units, like commoners
+     * B. Warriors have more Strength
+     *      Base: 6, 4, 5, 3
+     * C. Thieves have more Dexterity
+     *      Base: 3, 6, 5, 4
+     * D. Clerics have more Constitution
+     *      Base: 3, 4, 6, 5
+     * E. Wizards have more Wisdom
+     *      Base: 3, 4, 5, 6
+     */
     this.stats = {
-      strength: 1,
-      dexterity: 1,
-      constitution: 1,
-      wisdom: 1,
+      strength: 1, // for melee damage
+      dexterity: 1, // for movement speed
+      constitution: 1, // for hp
+      wisdom: 1, // for mana
     };
     this.scale = new Vector(1, 1);
     this.menuOpen = false;

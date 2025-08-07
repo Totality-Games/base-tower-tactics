@@ -11,17 +11,17 @@ import { MOVEMENT } from '../../constants';
 import { CombatUnit } from '../combatUtils/CombatUnit';
 import type { ContextProps } from '../../context/store';
 
-export class Delsaran extends CombatUnit {
+export class Iados extends CombatUnit {
   movement: MOVEMENT;
   resources: {
-    DelsaranSpriteSheetPng: ImageSource;
+    IadosSpriteSheetPng: ImageSource;
     AttackSound: Sound;
     DeathSound: Sound;
   };
   constructor(
     pos: Vector,
     resources: {
-      DelsaranSpriteSheetPng: ImageSource;
+      IadosSpriteSheetPng: ImageSource;
       AttackSound: Sound;
       DeathSound: Sound;
     },
@@ -31,15 +31,15 @@ export class Delsaran extends CombatUnit {
     super(pos, context, resources, isInParty);
 
     this.resources = resources;
-    this.name = 'Delsaran';
+    this.name = 'Iados';
     this.movement = MOVEMENT.IDLE;
     this.characterPortrait = '/assets/images/portraits/64x64/011.png';
-    // base cleric stats:
+    // base wizard stats
     this.stats = {
       strength: 3, // for melee damage
       dexterity: 4, // for movement speed
-      constitution: 6, // for hp
-      wisdom: 5, // for mana
+      constitution: 5, // for hp
+      wisdom: 6, // for mana
     };
   }
 
@@ -79,11 +79,11 @@ export class Delsaran extends CombatUnit {
   // }
 
   addAnimations() {
-    const delsaranSpriteSheet = SpriteSheet.fromImageSource({
-      image: this.resources.DelsaranSpriteSheetPng as ImageSource,
+    const iadosSpriteSheet = SpriteSheet.fromImageSource({
+      image: this.resources.IadosSpriteSheetPng as ImageSource,
       grid: {
         spriteWidth: 24,
-        spriteHeight: 32,
+        spriteHeight: 64,
         rows: 4,
         columns: 3,
       },
@@ -92,7 +92,7 @@ export class Delsaran extends CombatUnit {
     const downIdle = new Animation({
       frames: [
         {
-          graphic: delsaranSpriteSheet.getSprite(1, 0),
+          graphic: iadosSpriteSheet.getSprite(1, 0),
           duration: 200,
         },
       ],
@@ -102,7 +102,7 @@ export class Delsaran extends CombatUnit {
     const leftIdle = new Animation({
       frames: [
         {
-          graphic: delsaranSpriteSheet.getSprite(1, 1) as Sprite,
+          graphic: iadosSpriteSheet.getSprite(1, 1) as Sprite,
           duration: 200,
         },
       ],
@@ -112,7 +112,7 @@ export class Delsaran extends CombatUnit {
     const rightIdle = new Animation({
       frames: [
         {
-          graphic: delsaranSpriteSheet.getSprite(1, 2) as Sprite,
+          graphic: iadosSpriteSheet.getSprite(1, 2) as Sprite,
           duration: 200,
         },
       ],
@@ -122,7 +122,7 @@ export class Delsaran extends CombatUnit {
     const upIdle = new Animation({
       frames: [
         {
-          graphic: delsaranSpriteSheet.getSprite(1, 3) as Sprite,
+          graphic: iadosSpriteSheet.getSprite(1, 3) as Sprite,
           duration: 200,
         },
       ],
@@ -132,19 +132,19 @@ export class Delsaran extends CombatUnit {
     const leftWalk = new Animation({
       frames: [
         {
-          graphic: delsaranSpriteSheet.getSprite(0, 1) as Sprite,
+          graphic: iadosSpriteSheet.getSprite(0, 1) as Sprite,
           duration: 200,
         },
         {
-          graphic: delsaranSpriteSheet.getSprite(1, 1) as Sprite,
+          graphic: iadosSpriteSheet.getSprite(1, 1) as Sprite,
           duration: 200,
         },
         {
-          graphic: delsaranSpriteSheet.getSprite(2, 1) as Sprite,
+          graphic: iadosSpriteSheet.getSprite(2, 1) as Sprite,
           duration: 200,
         },
         {
-          graphic: delsaranSpriteSheet.getSprite(1, 1) as Sprite,
+          graphic: iadosSpriteSheet.getSprite(1, 1) as Sprite,
           duration: 200,
         },
       ],

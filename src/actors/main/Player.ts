@@ -35,6 +35,13 @@ export class MainGuy extends CombatUnit {
     this.resources = resources;
     this.name = 'Vajhir';
     this.characterPortrait = '/assets/images/portraits/64x64/006.png';
+    // base warrior stats:
+    this.stats = {
+      strength: 6, // for melee damage
+      dexterity: 4, // for movement speed
+      constitution: 5, // for hp
+      wisdom: 3, // for mana
+    };
   }
 
   onInitialize(engine: Engine): void {

@@ -16,6 +16,8 @@ import partyDeathSound from '/assets/audio/sounds/death/Quest_Abandoned.wav';
 // import spritesheets
 import heroPath from '/assets/sprites/characters/main/player/Character006.png?url';
 import delsaranPath from '/assets/sprites/characters/main/Delsaran/Character041.png?url';
+import iadosPath from '/assets/sprites/characters/main/Iados/Character159.png?url';
+import zephyriusPath from '/assets/sprites/characters/main/Zephyrius/Character026.png?url';
 import wolfkinPath from '/assets/sprites/characters/wolfkin/beast_tribe_1.png?url';
 import castleInterriorsSetPath from '/assets/tilesets/RPG_Buildings_CASTLE_v1.0/castle_interriors.png?url';
 
@@ -26,6 +28,12 @@ export const battleOneResources = {
   HeroSpriteSheetPng: new ImageSource(heroPath, false, ImageFiltering.Pixel),
   DelsaranSpriteSheetPng: new ImageSource(
     delsaranPath,
+    false,
+    ImageFiltering.Pixel
+  ),
+  IadosSpriteSheetPng: new ImageSource(iadosPath, false, ImageFiltering.Pixel),
+  ZephyriusSpriteSheetPng: new ImageSource(
+    zephyriusPath,
     false,
     ImageFiltering.Pixel
   ),

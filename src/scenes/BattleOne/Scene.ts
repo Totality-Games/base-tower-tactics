@@ -12,6 +12,8 @@ import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
 import { Guard } from '../../actors/npcs/Guard';
 import { Delsaran } from '../../actors/main/Delsaran';
+import { Iados } from '../../actors/main/Iados';
+import { Zephyrius } from '../../actors/main/Zephyrius';
 
 export class BattleOne extends BaseSceneWithContext {
   onInitialize(engine: Engine): void {
@@ -19,7 +21,7 @@ export class BattleOne extends BaseSceneWithContext {
     engine.currentScene.camera.zoom = 0.7;
 
     const player = new MainGuy(
-      vec(gridCells(1), gridCells(6)),
+      vec(gridCells(2), gridCells(6)),
       battleOneResources,
       {
         globalStore: this.globalStore,
@@ -28,7 +30,25 @@ export class BattleOne extends BaseSceneWithContext {
       true // isInParty
     );
     const player2 = new Delsaran(
-      vec(gridCells(1), gridCells(5)),
+      vec(gridCells(3), gridCells(6)),
+      battleOneResources,
+      {
+        globalStore: this.globalStore,
+        setGlobalStore: this.setGlobalStore,
+      },
+      true // isInParty
+    );
+    const player3 = new Iados(
+      vec(gridCells(4), gridCells(6)),
+      battleOneResources,
+      {
+        globalStore: this.globalStore,
+        setGlobalStore: this.setGlobalStore,
+      },
+      true // isInParty
+    );
+    const player4 = new Zephyrius(
+      vec(gridCells(5), gridCells(6)),
       battleOneResources,
       {
         globalStore: this.globalStore,
@@ -38,7 +58,9 @@ export class BattleOne extends BaseSceneWithContext {
     );
     engine.currentScene.add(player);
     engine.currentScene.add(player2);
-    this.setGlobalStore('initiativeOrder', [player, player2]);
+    engine.currentScene.add(player3);
+    engine.currentScene.add(player4);
+    this.setGlobalStore('initiativeOrder', [player, player2, player3, player4]);
 
     battleOneResources.TiledMap.addToScene(engine.currentScene);
 
@@ -72,7 +94,7 @@ export class BattleOne extends BaseSceneWithContext {
 
   private setupEnemies() {
     const guardOne = new Guard(
-      vec(gridCells(1), gridCells(4)),
+      vec(gridCells(9), gridCells(1)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
@@ -81,7 +103,7 @@ export class BattleOne extends BaseSceneWithContext {
       'Wolfkin Guard One'
     );
     const guardTwo = new Guard(
-      vec(gridCells(2), gridCells(6)),
+      vec(gridCells(1), gridCells(1)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
