@@ -49,8 +49,10 @@ export function ActionMenu() {
       globalStore.initiativeOrder![globalStore.currentCombatTurnValue];
     currentTurnUnit.hasMoved = false;
     setIsMoving(false);
+    // move unit back to turn starting position
     currentTurnUnit.pos.x = originalPos().x;
     currentTurnUnit.pos.y = originalPos().y;
+    // remove movement squares if unit hasn't actually moved yet
     currentTurnUnit.showMovementSquares = false;
     currentTurnUnit.children.map((child) => child.kill());
     currentTurnUnit.removeAllChildren();

@@ -196,27 +196,47 @@ export class CombatUnit extends Actor {
   }
 
   createMovementSquares() {
+    // base cross movement
+    const childLeft = new GridMovementSquareChild(vec(-32, 0));
+    const childRight = new GridMovementSquareChild(vec(32, 0));
+    const childUp = new GridMovementSquareChild(vec(0, -32));
+    const childDown = new GridMovementSquareChild(vec(0, 32));
+    // diagonals
+    const childDiagonalTopLeft = new GridMovementSquareChild(vec(-32, -32));
+    const childDiagonalTopRight = new GridMovementSquareChild(vec(32, -32));
+    const childDiagonalBottomLeft = new GridMovementSquareChild(vec(-32, 32));
+    const childDiagonalBottomRight = new GridMovementSquareChild(vec(32, 32));
+    // double cross movement
+    const childDoubleLeft = new GridMovementSquareChild(vec(-64, 0));
+    const childDoubleRight = new GridMovementSquareChild(vec(64, 0));
+    const childDoubleUp = new GridMovementSquareChild(vec(0, -64));
+    const childDoubleDown = new GridMovementSquareChild(vec(0, 64));
+
     // player movement by dex score
     switch (this.stats.dexterity) {
       case 1: {
-        const childLeft = new GridMovementSquareChild(vec(-32, 0));
-        const childRight = new GridMovementSquareChild(vec(32, 0));
-        const childUp = new GridMovementSquareChild(vec(0, -32));
-        const childDown = new GridMovementSquareChild(vec(0, 32));
-
         this.addChild(childLeft);
         this.addChild(childRight);
         this.addChild(childUp);
         this.addChild(childDown);
-
+        break;
+      }
+      case 2: {
+        this.addChild(childLeft);
+        this.addChild(childRight);
+        this.addChild(childUp);
+        this.addChild(childDown);
+        this.addChild(childDiagonalTopLeft);
+        this.addChild(childDiagonalTopRight);
+        this.addChild(childDiagonalBottomLeft);
+        this.addChild(childDiagonalBottomRight);
+        this.addChild(childDoubleLeft);
+        this.addChild(childDoubleRight);
+        this.addChild(childDoubleUp);
+        this.addChild(childDoubleDown);
         break;
       }
       default: {
-        const childLeft = new GridMovementSquareChild(vec(-32, 0));
-        const childRight = new GridMovementSquareChild(vec(32, 0));
-        const childUp = new GridMovementSquareChild(vec(0, -32));
-        const childDown = new GridMovementSquareChild(vec(0, 32));
-
         this.addChild(childLeft);
         this.addChild(childRight);
         this.addChild(childUp);
