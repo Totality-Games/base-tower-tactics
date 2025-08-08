@@ -32,7 +32,12 @@ export class Guard extends EnemyUnit {
     this.direction = direction ?? DIRECTIONS.DOWN;
     this.resources = resources;
     this.name = name;
-    this.stats.constitution = 2;
+    this.stats = {
+      strength: 2, // for melee damage
+      dexterity: 2, // for movement speed
+      constitution: 2, // for hp
+      wisdom: 2, // for mana
+    };
   }
 
   onInitialize(engine: Engine): void {

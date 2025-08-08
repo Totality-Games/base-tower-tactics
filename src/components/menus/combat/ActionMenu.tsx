@@ -51,6 +51,9 @@ export function ActionMenu() {
     setIsMoving(false);
     currentTurnUnit.pos.x = originalPos().x;
     currentTurnUnit.pos.y = originalPos().y;
+    currentTurnUnit.showMovementSquares = false;
+    currentTurnUnit.children.map((child) => child.kill());
+    currentTurnUnit.removeAllChildren();
   }
 
   function handleAttackClick() {

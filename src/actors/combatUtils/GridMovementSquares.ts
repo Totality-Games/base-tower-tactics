@@ -32,7 +32,7 @@ export class GridMovementSquareChild extends Actor {
   }
 
   onInitialize(_engine: Engine): void {
-    console.log('movement grid created');
+    console.log(this.name, ': movement grid created');
     this.combatMovement();
   }
 
