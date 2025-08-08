@@ -201,7 +201,7 @@ export class CombatUnit extends Actor {
     const childRight = new GridMovementSquareChild(vec(32, 0));
     const childUp = new GridMovementSquareChild(vec(0, -32));
     const childDown = new GridMovementSquareChild(vec(0, 32));
-    // diagonals
+    // base diagonals
     const childDiagonalTopLeft = new GridMovementSquareChild(vec(-32, -32));
     const childDiagonalTopRight = new GridMovementSquareChild(vec(32, -32));
     const childDiagonalBottomLeft = new GridMovementSquareChild(vec(-32, 32));
@@ -211,6 +211,36 @@ export class CombatUnit extends Actor {
     const childDoubleRight = new GridMovementSquareChild(vec(64, 0));
     const childDoubleUp = new GridMovementSquareChild(vec(0, -64));
     const childDoubleDown = new GridMovementSquareChild(vec(0, 64));
+    // double diagonals
+    const childDoubleDiagonalTopLeft = new GridMovementSquareChild(
+      vec(-64, -32)
+    );
+    const childDoubleDiagonalTopLeft2 = new GridMovementSquareChild(
+      vec(-32, -64)
+    );
+    const childDoubleDiagonalTopRight = new GridMovementSquareChild(
+      vec(64, -32)
+    );
+    const childDoubleDiagonalTopRight2 = new GridMovementSquareChild(
+      vec(32, -64)
+    );
+    const childDoubleDiagonalBottomLeft = new GridMovementSquareChild(
+      vec(-64, 32)
+    );
+    const childDoubleDiagonalBottomLeft2 = new GridMovementSquareChild(
+      vec(-32, 64)
+    );
+    const childDoubleDiagonalBottomRight = new GridMovementSquareChild(
+      vec(64, 32)
+    );
+    const childDoubleDiagonalBottomRight2 = new GridMovementSquareChild(
+      vec(32, 64)
+    );
+    // triple cross movement
+    const childTripleLeft = new GridMovementSquareChild(vec(-96, 0));
+    const childTripleRight = new GridMovementSquareChild(vec(96, 0));
+    const childTripleUp = new GridMovementSquareChild(vec(0, -96));
+    const childTripleDown = new GridMovementSquareChild(vec(0, 96));
 
     // player movement by dex score
     switch (this.stats.dexterity) {
@@ -234,6 +264,33 @@ export class CombatUnit extends Actor {
         this.addChild(childDoubleRight);
         this.addChild(childDoubleUp);
         this.addChild(childDoubleDown);
+        break;
+      }
+      case 3: {
+        this.addChild(childLeft);
+        this.addChild(childRight);
+        this.addChild(childUp);
+        this.addChild(childDown);
+        this.addChild(childDiagonalTopLeft);
+        this.addChild(childDiagonalTopRight);
+        this.addChild(childDiagonalBottomLeft);
+        this.addChild(childDiagonalBottomRight);
+        this.addChild(childDoubleLeft);
+        this.addChild(childDoubleRight);
+        this.addChild(childDoubleUp);
+        this.addChild(childDoubleDown);
+        this.addChild(childDoubleDiagonalTopLeft);
+        this.addChild(childDoubleDiagonalTopLeft2);
+        this.addChild(childDoubleDiagonalTopRight);
+        this.addChild(childDoubleDiagonalTopRight2);
+        this.addChild(childDoubleDiagonalBottomLeft);
+        this.addChild(childDoubleDiagonalBottomLeft2);
+        this.addChild(childDoubleDiagonalBottomRight);
+        this.addChild(childDoubleDiagonalBottomRight2);
+        this.addChild(childTripleLeft);
+        this.addChild(childTripleRight);
+        this.addChild(childTripleUp);
+        this.addChild(childTripleDown);
         break;
       }
       default: {

@@ -38,7 +38,7 @@ export class MainGuy extends CombatUnit {
     // base warrior stats:
     this.stats = {
       strength: 6, // for melee damage
-      dexterity: 2, // for movement speed
+      dexterity: 3, // for movement speed
       constitution: 5, // for hp
       wisdom: 3, // for mana
     };
