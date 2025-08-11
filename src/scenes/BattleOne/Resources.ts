@@ -20,6 +20,7 @@ import iadosPath from '/assets/sprites/characters/main/Iados/Character159.png?ur
 import zephyriusPath from '/assets/sprites/characters/main/Zephyrius/Character026.png?url';
 import wolfkinPath from '/assets/sprites/characters/wolfkin/beast_tribe_1.png?url';
 import structurePath from '/assets/sprites/structures/Structure-2.png?url';
+import angelBluePath from '/assets/sprites/deities/Angel_blue-Sheet.png?url';
 import castleInterriorsSetPath from '/assets/tilesets/RPG_Buildings_CASTLE_v1.0/castle_interriors.png?url';
 
 // import tilesets
@@ -45,6 +46,11 @@ export const battleOneResources = {
   ),
   StructureSpriteSheetPng: new ImageSource(
     structurePath,
+    false,
+    ImageFiltering.Pixel
+  ),
+  AngelSpriteSheetPng: new ImageSource(
+    angelBluePath,
     false,
     ImageFiltering.Pixel
   ),

@@ -53,7 +53,6 @@ export class Structure extends EnemyUnit {
         this.globalStore.currentCombatTurnValue
       ] === this
     ) {
-      this.endTurn();
       this.beginNextTurn();
     }
   }

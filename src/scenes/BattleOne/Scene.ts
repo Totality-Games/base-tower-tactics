@@ -10,9 +10,10 @@ import { BaseSceneWithContext } from '../BaseSceneWithContext';
 import { SCENE_STATE } from '../../constants';
 import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
-import { Guard } from '../../actors/npcs/Guard';
+// import { Guard } from '../../actors/npcs/Guard';
 import type { SetGlobalStoreType } from '../../context/store';
-import { Structure } from '../../actors/structures/Structure';
+// import { Structure } from '../../actors/structures/Structure';
+import { Angel } from '../../actors/dieties/Angel';
 // import { Delsaran } from '../../actors/main/Delsaran';
 // import { Iados } from '../../actors/main/Iados';
 // import { Zephyrius } from '../../actors/main/Zephyrius';
@@ -117,17 +118,27 @@ export class BattleOne extends BaseSceneWithContext {
     //   'Wolfkin Guard Two'
     // );
 
-    const structure = new Structure(
-      vec(gridCells(4), gridCells(2)),
+    // const structure = new Structure(
+    //   vec(gridCells(4), gridCells(2)),
+    //   {
+    //     globalStore: this.globalStore,
+    //     setGlobalStore: this.setGlobalStore,
+    //   },
+    //   battleOneResources,
+    //   'Structure'
+    // );
+
+    const angelOne = new Angel(
+      vec(gridCells(3), gridCells(3)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
       },
       battleOneResources,
-      'Structure'
+      'Angel'
     );
 
-    return [structure];
+    return [angelOne];
   }
 
   private setCameraBoundaries(
