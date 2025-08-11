@@ -14,6 +14,7 @@ import { gridCells } from '../../utils';
 import type { SetGlobalStoreType } from '../../context/store';
 // import { Structure } from '../../actors/structures/Structure';
 import { Angel } from '../../actors/dieties/Angel';
+import { Agis } from '../../actors/dieties/Agis';
 // import { Delsaran } from '../../actors/main/Delsaran';
 // import { Iados } from '../../actors/main/Iados';
 // import { Zephyrius } from '../../actors/main/Zephyrius';
@@ -128,17 +129,27 @@ export class BattleOne extends BaseSceneWithContext {
     //   'Structure'
     // );
 
-    const angelOne = new Angel(
+    // const angelOne = new Angel(
+    //   vec(gridCells(3), gridCells(3)),
+    //   {
+    //     globalStore: this.globalStore,
+    //     setGlobalStore: this.setGlobalStore,
+    //   },
+    //   battleOneResources,
+    //   'Angel'
+    // );
+
+    const agis = new Agis(
       vec(gridCells(3), gridCells(3)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
       },
       battleOneResources,
-      'Angel'
+      'Agis'
     );
 
-    return [angelOne];
+    return [agis];
   }
 
   private setCameraBoundaries(

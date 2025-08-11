@@ -3,7 +3,6 @@ import {
   Engine,
   ImageSource,
   Sound,
-  Sprite,
   SpriteSheet,
   Vector,
 } from 'excalibur';

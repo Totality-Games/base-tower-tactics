@@ -21,6 +21,7 @@ import zephyriusPath from '/assets/sprites/characters/main/Zephyrius/Character02
 import wolfkinPath from '/assets/sprites/characters/wolfkin/beast_tribe_1.png?url';
 import structurePath from '/assets/sprites/structures/Structure-2.png?url';
 import angelBluePath from '/assets/sprites/deities/Angel_blue-Sheet.png?url';
+import agisPath from '/assets/sprites/deities/Agis.png?url';
 import castleInterriorsSetPath from '/assets/tilesets/RPG_Buildings_CASTLE_v1.0/castle_interriors.png?url';
 
 // import tilesets
@@ -54,6 +55,7 @@ export const battleOneResources = {
     false,
     ImageFiltering.Pixel
   ),
+  AgisSpriteSheetPng: new ImageSource(agisPath, false, ImageFiltering.Pixel),
   Music: new Sound(combatOneMP3, combatOneWav, combatOneOgg),
   AttackSound: new Sound(attackSound),
   DeathSound: new Sound(partyDeathSound),
