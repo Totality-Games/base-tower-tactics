@@ -1,10 +1,28 @@
-import { Color, Label, vec, type Engine } from 'excalibur';
+import { Color, Label, Sound, vec, Vector, type Engine } from 'excalibur';
 import { CombatUnit } from './CombatUnit';
 import type { GridMovementSquareChild } from './GridMovementSquares';
 import type { GridAttackSquareChild } from './GridAttackSquares';
+import type { ContextProps } from '../../context/store';
 
 export class EnemyUnit extends CombatUnit {
   takingAction?: boolean;
+
+  constructor(
+    pos: Vector,
+    context: ContextProps,
+    sounds: {
+      AttackSound: Sound;
+      DeathSound: Sound;
+    },
+    isInParty?: boolean,
+    customDimensions?: {
+      width: number;
+      height: number;
+    }
+  ) {
+    super(pos, context, sounds, isInParty, customDimensions);
+  }
+
   onPreUpdate(engine: Engine, elapsed: number): void {
     super.onPreUpdate(engine, elapsed);
 

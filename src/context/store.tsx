@@ -14,6 +14,12 @@ export interface GlobalStoreType {
   showCombatUnitMenu: boolean;
   currentCombatUnitTotal: number;
   currentCombatTurnValue: number;
+  combatTilemapBoundaries: {
+    leftBoundary: number;
+    rightBoundary: number;
+    upBoundary: number;
+    downBoundary: number;
+  };
 }
 
 export type SetGlobalStoreType = SetStoreFunction<GlobalStoreType>;
@@ -32,6 +38,12 @@ export function GameContextProvider(props: { children: JSXElement }) {
     showCombatUnitMenu: false,
     currentCombatUnitTotal: 0,
     currentCombatTurnValue: 0,
+    combatTilemapBoundaries: {
+      leftBoundary: 0,
+      rightBoundary: 0,
+      upBoundary: 0,
+      downBoundary: 0,
+    },
   });
 
   return (

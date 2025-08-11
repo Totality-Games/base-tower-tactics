@@ -51,7 +51,7 @@ export class GridAttackSquareChild extends Actor {
     _contact: CollisionContact
   ): void {
     console.log(other.owner.name);
-    if (other.owner.name === 'Walls') {
+    if (other.owner.name === 'Walls' || other.owner === this.parent) {
       this.kill();
     } else {
       this.unitInRange = other.owner as CombatUnit;

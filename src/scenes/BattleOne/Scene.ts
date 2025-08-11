@@ -11,17 +11,19 @@ import { SCENE_STATE } from '../../constants';
 import { MainGuy } from '../../actors/main/Player';
 import { gridCells } from '../../utils';
 import { Guard } from '../../actors/npcs/Guard';
+import type { SetGlobalStoreType } from '../../context/store';
+import { Structure } from '../../actors/structures/Structure';
 // import { Delsaran } from '../../actors/main/Delsaran';
 // import { Iados } from '../../actors/main/Iados';
 // import { Zephyrius } from '../../actors/main/Zephyrius';
 
 export class BattleOne extends BaseSceneWithContext {
   onInitialize(engine: Engine): void {
-    this.setCameraBoundaries(engine);
+    this.setCameraBoundaries(engine, this.setGlobalStore);
     engine.currentScene.camera.zoom = 0.7;
 
     const player = new MainGuy(
-      vec(gridCells(4), gridCells(4)),
+      vec(gridCells(6), gridCells(6)),
       battleOneResources,
       {
         globalStore: this.globalStore,
@@ -96,41 +98,69 @@ export class BattleOne extends BaseSceneWithContext {
   onPreUpdate(_engine: Engine, _delta: number): void {}
 
   private setupEnemies() {
-    const guardOne = new Guard(
-      vec(gridCells(9), gridCells(1)),
+    // const guardOne = new Guard(
+    //   vec(gridCells(9), gridCells(1)),
+    //   {
+    //     globalStore: this.globalStore,
+    //     setGlobalStore: this.setGlobalStore,
+    //   },
+    //   battleOneResources,
+    //   'Wolfkin Guard One'
+    // );
+    // const guardTwo = new Guard(
+    //   vec(gridCells(1), gridCells(1)),
+    //   {
+    //     globalStore: this.globalStore,
+    //     setGlobalStore: this.setGlobalStore,
+    //   },
+    //   battleOneResources,
+    //   'Wolfkin Guard Two'
+    // );
+
+    const structure = new Structure(
+      vec(gridCells(4), gridCells(2)),
       {
         globalStore: this.globalStore,
         setGlobalStore: this.setGlobalStore,
       },
       battleOneResources,
-      'Wolfkin Guard One'
-    );
-    const guardTwo = new Guard(
-      vec(gridCells(1), gridCells(1)),
-      {
-        globalStore: this.globalStore,
-        setGlobalStore: this.setGlobalStore,
-      },
-      battleOneResources,
-      'Wolfkin Guard Two'
+      'Structure'
     );
 
-    return [guardOne, guardTwo];
+    return [structure];
   }
 
-  private setCameraBoundaries(engine: Engine) {
+  private setCameraBoundaries(
+    engine: Engine,
+    setGlobalStore: SetGlobalStoreType
+  ) {
     // add map boundaries for camera
     const tilemap = battleOneResources.TiledMap.getTileLayers()[0].tilemap;
     const tileWidth = battleOneResources.TiledMap.getTileLayers()[0].width;
     const tileHeight = battleOneResources.TiledMap.getTileLayers()[0].height;
 
+    const leftBoundary = tilemap.pos.x;
+    const rightBoundary = tilemap.pos.y + tileHeight * 32;
+    const upBoundary = tilemap.pos.y;
+    const downBoundary = tilemap.pos.y + tileWidth * 90;
+
     const mapBounds = new BoundingBox({
-      left: tilemap.pos.x,
-      top: tilemap.pos.y,
-      bottom: tilemap.pos.y + tileWidth * 90,
-      right: tilemap.pos.y + tileHeight * 32,
+      left: leftBoundary,
+      top: upBoundary,
+      bottom: downBoundary,
+      right: rightBoundary,
     });
+
     engine.currentScene.camera.strategy.limitCameraBounds(mapBounds);
+    // add tilemap boundaries to store to retrieve them in combatUtils
+    // like GridMovementSquares, so that any square created outside of
+    // the boundary is killed, to prevent out of bounds movement.
+    setGlobalStore('combatTilemapBoundaries', {
+      leftBoundary,
+      rightBoundary,
+      upBoundary,
+      downBoundary,
+    });
   }
 }
 

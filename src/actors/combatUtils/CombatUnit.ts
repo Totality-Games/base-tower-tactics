@@ -56,12 +56,16 @@ export class CombatUnit extends Actor {
       AttackSound: Sound;
       DeathSound: Sound;
     },
-    isInParty?: boolean
+    isInParty?: boolean,
+    customDimensions?: {
+      width: number;
+      height: number;
+    }
   ) {
     super({
       pos,
-      width: 32,
-      height: 32,
+      width: customDimensions?.width ?? 32,
+      height: customDimensions?.height ?? 32,
       collisionType: CollisionType.Fixed,
     });
 
@@ -125,19 +129,7 @@ export class CombatUnit extends Actor {
       ] === this
     ) {
       if (this.hasAttacked) {
-        const nextValue =
-          this.globalStore.currentCombatTurnValue ===
-          this.globalStore.currentCombatUnitTotal
-            ? 0
-            : this.globalStore.currentCombatTurnValue + 1;
-        this.setGlobalStore('currentCombatTurnValue', nextValue);
-
-        if (nextValue === 0) {
-          this.globalStore.initiativeOrder.map((unit) => {
-            unit.hasMoved = false;
-            unit.hasAttacked = false;
-          });
-        }
+        this.beginNextTurn();
       }
     }
 
@@ -153,6 +145,22 @@ export class CombatUnit extends Actor {
         this.createAttackSquares();
         return;
       }
+    }
+  }
+
+  beginNextTurn() {
+    const nextValue =
+      this.globalStore.currentCombatTurnValue ===
+      this.globalStore.currentCombatUnitTotal
+        ? 0
+        : this.globalStore.currentCombatTurnValue + 1;
+    this.setGlobalStore('currentCombatTurnValue', nextValue);
+
+    if (nextValue === 0) {
+      this.globalStore.initiativeOrder?.map((unit) => {
+        unit.hasMoved = false;
+        unit.hasAttacked = false;
+      });
     }
   }
 
@@ -196,51 +204,75 @@ export class CombatUnit extends Actor {
   }
 
   createMovementSquares() {
+    const globalStore = this.globalStore;
+    const setGlobalStore = this.setGlobalStore;
+    const context = { globalStore, setGlobalStore };
+
     // base cross movement
-    const childLeft = new GridMovementSquareChild(vec(-32, 0));
-    const childRight = new GridMovementSquareChild(vec(32, 0));
-    const childUp = new GridMovementSquareChild(vec(0, -32));
-    const childDown = new GridMovementSquareChild(vec(0, 32));
+    const childLeft = new GridMovementSquareChild(vec(-32, 0), context);
+    const childRight = new GridMovementSquareChild(vec(32, 0), context);
+    const childUp = new GridMovementSquareChild(vec(0, -32), context);
+    const childDown = new GridMovementSquareChild(vec(0, 32), context);
     // base diagonals
-    const childDiagonalTopLeft = new GridMovementSquareChild(vec(-32, -32));
-    const childDiagonalTopRight = new GridMovementSquareChild(vec(32, -32));
-    const childDiagonalBottomLeft = new GridMovementSquareChild(vec(-32, 32));
-    const childDiagonalBottomRight = new GridMovementSquareChild(vec(32, 32));
+    const childDiagonalTopLeft = new GridMovementSquareChild(
+      vec(-32, -32),
+      context
+    );
+    const childDiagonalTopRight = new GridMovementSquareChild(
+      vec(32, -32),
+      context
+    );
+    const childDiagonalBottomLeft = new GridMovementSquareChild(
+      vec(-32, 32),
+      context
+    );
+    const childDiagonalBottomRight = new GridMovementSquareChild(
+      vec(32, 32),
+      context
+    );
     // double cross movement
-    const childDoubleLeft = new GridMovementSquareChild(vec(-64, 0));
-    const childDoubleRight = new GridMovementSquareChild(vec(64, 0));
-    const childDoubleUp = new GridMovementSquareChild(vec(0, -64));
-    const childDoubleDown = new GridMovementSquareChild(vec(0, 64));
+    const childDoubleLeft = new GridMovementSquareChild(vec(-64, 0), context);
+    const childDoubleRight = new GridMovementSquareChild(vec(64, 0), context);
+    const childDoubleUp = new GridMovementSquareChild(vec(0, -64), context);
+    const childDoubleDown = new GridMovementSquareChild(vec(0, 64), context);
     // double diagonals
     const childDoubleDiagonalTopLeft = new GridMovementSquareChild(
-      vec(-64, -32)
+      vec(-64, -32),
+      context
     );
     const childDoubleDiagonalTopLeft2 = new GridMovementSquareChild(
-      vec(-32, -64)
+      vec(-32, -64),
+      context
     );
     const childDoubleDiagonalTopRight = new GridMovementSquareChild(
-      vec(64, -32)
+      vec(64, -32),
+      context
     );
     const childDoubleDiagonalTopRight2 = new GridMovementSquareChild(
-      vec(32, -64)
+      vec(32, -64),
+      context
     );
     const childDoubleDiagonalBottomLeft = new GridMovementSquareChild(
-      vec(-64, 32)
+      vec(-64, 32),
+      context
     );
     const childDoubleDiagonalBottomLeft2 = new GridMovementSquareChild(
-      vec(-32, 64)
+      vec(-32, 64),
+      context
     );
     const childDoubleDiagonalBottomRight = new GridMovementSquareChild(
-      vec(64, 32)
+      vec(64, 32),
+      context
     );
     const childDoubleDiagonalBottomRight2 = new GridMovementSquareChild(
-      vec(32, 64)
+      vec(32, 64),
+      context
     );
     // triple cross movement
-    const childTripleLeft = new GridMovementSquareChild(vec(-96, 0));
-    const childTripleRight = new GridMovementSquareChild(vec(96, 0));
-    const childTripleUp = new GridMovementSquareChild(vec(0, -96));
-    const childTripleDown = new GridMovementSquareChild(vec(0, 96));
+    const childTripleLeft = new GridMovementSquareChild(vec(-96, 0), context);
+    const childTripleRight = new GridMovementSquareChild(vec(96, 0), context);
+    const childTripleUp = new GridMovementSquareChild(vec(0, -96), context);
+    const childTripleDown = new GridMovementSquareChild(vec(0, 96), context);
 
     // player movement by dex score
     switch (this.stats.dexterity) {
